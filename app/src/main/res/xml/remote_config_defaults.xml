@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>marketplace_enabled</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>max_local_papers</key>
+        <value>10</value>
+    </entry>
+    <entry>
+        <key>maintenance_mode</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>caps_validation_strict</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

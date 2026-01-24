@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartExam SA</string>
+
+    <!-- Assessment Generator -->
+    <string name="message_select_filters">Select a subject and grade to view questions.</string>
+    <string name="message_invalid_grade">Enter a valid numeric grade.</string>
+    <string name="message_loading_questions">Loading matching questions…</string>
+    <string name="message_no_questions">No questions found for the selected filters.</string>
+</resources>

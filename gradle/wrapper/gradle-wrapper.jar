@@ -1,0 +1,12 @@
+This is a placeholder for gradle-wrapper.jar.
+
+The actual gradle-wrapper.jar is a binary file that should be downloaded 
+when you first sync the project in Android Studio.
+
+To properly set up the Gradle wrapper:
+1. Open the project in Android Studio
+2. Android Studio will automatically download and set up the wrapper
+3. Or run: gradle wrapper --gradle-version 8.5
+
+For now, just open the project in Android Studio and let it sync.
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- New Style Palette based on Visual Reference -->
+    
+    <!-- Primary: Dark Slate/Teal -->
+    <color name="primary_slate">#334E58</color>
+    <color name="primary_slate_dark">#263C45</color>
+    
+    <!-- Accent: Soft Peach/Orange -->
+    <color name="accent_peach">#FFB74D</color>
+    <color name="accent_peach_dark">#F57C00</color>
+    <color name="accent_teal">#26A69A</color>
+    
+    <!-- Backgrounds -->
+    <color name="background_cream">#FFF8E7</color>
+    <color name="surface_white">#FFFFFF</color>
+    
+    <!-- Text -->
+    <color name="text_primary">#263C45</color>
+    <color name="text_secondary">#546E7A</color>
+    <color name="text_tertiary">#90A4AE</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    
+    <!-- Android Standard Overrides -->
+    <color name="purple_200">@color/accent_peach</color>
+    <color name="purple_500">@color/primary_slate</color>
+    <color name="purple_700">@color/primary_slate_dark</color>
+    <color name="teal_200">#FFCC80</color>
+    <color name="teal_700">#00796B</color>
+    <color name="black">#263C45</color>
+    <color name="white">#FFFFFF</color>
+    
+    <!-- Difficulty Indicators -->
+    <color name="difficulty_easy">#4DB6AC</color>
+    <color name="difficulty_medium">#FFB74D</color>
+    <color name="difficulty_hard">#E57373</color>
+</resources>

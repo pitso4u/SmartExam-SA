@@ -1,0 +1,60 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SmartExamSA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color (Dark Slate) -->
+        <item name="colorPrimary">@color/primary_slate</item>
+        <item name="colorPrimaryVariant">@color/primary_slate_dark</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        
+        <!-- Secondary/Accent color (Peach) -->
+        <item name="colorSecondary">@color/accent_peach</item>
+        <item name="colorSecondaryVariant">@color/accent_peach_dark</item>
+        <item name="colorOnSecondary">@color/primary_slate</item>
+        
+        <!-- Backgrounds & Surfaces -->
+        <item name="android:windowBackground">@color/background_cream</item>
+        <item name="colorSurface">@color/surface_white</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        
+        <!-- Typography & Shapes -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
+        
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/background_cream</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+    
+    <!-- Custom Button Style -->
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/accent_peach</item>
+        <item name="android:textColor">@color/primary_slate_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:paddingVertical">12dp</item>
+    </style>
+    
+    <!-- Custom Card Style -->
+    <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/surface_white</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+</resources>

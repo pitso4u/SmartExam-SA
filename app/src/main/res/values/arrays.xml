@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="subscription_plans">
+        <item>Free</item>
+        <item>Pro</item>
+        <item>Enterprise</item>
+    </string-array>
+</resources>

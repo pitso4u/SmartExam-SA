@@ -1,0 +1,7 @@
+<resources>
+    <string name="search_hint">Search questions...</string>
+    <string name="no_questions_found">No questions found.</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="title_activity_question_bank">Question Bank</string>
+</resources>
