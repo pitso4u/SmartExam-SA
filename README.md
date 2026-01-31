@@ -4,6 +4,8 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 
 ## 🚀 Current Status: **Production Ready**
 ✅ **Firebase Integration Complete** - Real-time sync, authentication, and comprehensive testing suite
+✅ **Enterprise Trial System** - Server-side tracking with device binding and abuse prevention
+✅ **Cinematic Splash Screen** - Android 12+ SplashScreen API with professional branding
 ✅ **Payment Infrastructure Ready** - Stripe SDK integrated, Paystack architecture documented
 ✅ **Offline-First Architecture** - Room database with Firestore sync bridge
 ✅ **CAPS-Aligned Content System** - Complete question authoring and assessment generation
@@ -27,6 +29,7 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 ## Features
 - **Dashboard overview** with question, paper, and subject counts plus quick links to key flows.
 - **Question authoring** with support for multiple question types, difficulty levels, rich metadata (CAPS aligned), and optional image attachments.
+- **Enterprise Trial System** - 14-day free trial with server-side tracking and device binding to prevent abuse.
 - **Subscription-based Marketplace** for browsing and downloading premium question packs with individual teacher subscriptions (R50/month).
 - **Admin Management Portal** for creating, validating, and publishing curriculum-compliant content to the marketplace.
 - **Question bank** that filters by subject, grade, or search query to reuse questions efficiently.
@@ -34,6 +37,7 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 - **Teacher settings** for school profile, branding (logo upload), and subscription management.
 - **Production-Ready Firebase Sync** using real-time Firestore integration with comprehensive testing suite.
 - **Firebase Connection Testing** with dedicated test activity for connectivity verification and debugging.
+- **Cinematic Splash Screen** - Professional branding with Android 12+ SplashScreen API and subtle light animations.
 
 ## Architecture
 | Layer | Responsibilities |
@@ -49,7 +53,8 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 2. **Question Bank & Filtering** → `QuestionBankActivity` loads all questions, filters locally, and supports CRUD.
 3. **Assessment Generation** → `AssessmentGeneratorActivity` selects questions, generates PDFs, and stores `AssessmentPaper` plus `PaperQuestion` mappings (for a future detail screen).
 4. **Firebase Sync** → `SyncService` provides real-time Firestore integration with comprehensive test coverage via `FirebaseConnectionTestActivity`.
-5. **Marketplace Integration** → Ready for Paystack payment processing with documented backend architecture.
+5. **Enterprise Trial System** → `TrialManager` handles 14-day trials with server-side tracking, device binding, and abuse prevention via `TrialAbuseDetector`.
+6. **Marketplace Integration** → Ready for Paystack payment processing with documented backend architecture.
 
 ## Tech Stack
 - **Language:** Java 17 (Android toolchain)
@@ -123,12 +128,14 @@ SmartExam SA/
 | `QuestionPack` | Marketplace-ready bundle metadata |
 | `PurchasedPack` | Tracks local ownership and sync status |
 
-### Firestore Prototype (see `docs/FirestoreSchema.md`)
+### Firestore Collections
 - `questions`: global marketplace pool.
 - `question_packs`: purchasable bundles tied to Stripe price IDs.
 - `users`: teacher profiles with purchased pack tracking.
 - `subscriptions`: individual teacher subscription status and billing information.
 - `transactions`: payment records and receipts for subscription billing.
+- `trials`: enterprise trial management with device binding and abuse prevention.
+- `abuse_reports`: suspicious activity monitoring and prevention.
 
 ## Testing
 - **Unit tests:** JUnit 4 is configured; add tests under `app/src/test/java` for Room DAO logic, utilities, and repositories.
@@ -184,7 +191,13 @@ MIT License - Feel free to use this project for educational and commercial purpo
 ### Firebase Console Access
 - **Project ID**: `smartexam-sa`
 - **Console**: https://console.firebase.google.com/project/smartexam-sa
-- **Collections**: `connection_tests`, `sync_tests`, `users`, `question_packs`
+- **Collections**: `connection_tests`, `sync_tests`, `users`, `question_packs`, `trials`, `abuse_reports`
+
+### Trial System Testing
+1. **New Install Flow**: Fresh install → TermsAcceptanceActivity → TrialWelcomeActivity → MainActivity
+2. **Trial Management**: Test trial expiry, device binding, and abuse prevention
+3. **Server Verification**: Check Firestore `trials` collection for trial records
+4. **Abuse Detection**: Monitor `abuse_reports` collection for suspicious activity
 
 ### Documentation
 - **Firestore Schema**: `docs/FirestoreSchema.md`

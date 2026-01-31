@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="1920dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="1920">
+    
+    <!-- Base dark background -->
+    <path
+        android:fillColor="#001a2332"
+        android:pathData="M0,0h1080v1920h-1080z" />
+    
+    <!-- Animated light beam -->
+    <group android:name="lightBeam">
+        <path
+            android:fillColor="#4e8ecf55"
+            android:pathData="M0,960l1080,0l-540,-960z">
+            <aapt:attr name="android:fillAlpha">
+                <animated-attribute
+                    android:name="fillAlpha"
+                    android:duration="2000"
+                    android:repeatCount="infinite"
+                    android:valueFrom="0.0"
+                    android:valueTo="0.3"
+                    android:valueType="floatType" />
+            </aapt:attr>
+        </path>
+    </group>
+    
+    <!-- Secondary light sweep -->
+    <group android:name="secondaryLight">
+        <path
+            android:fillColor="#7ec1f285"
+            android:pathData="M540,0l540,960l-1080,0z">
+            <aapt:attr name="android:fillAlpha">
+                <animated-attribute
+                    android:name="fillAlpha"
+                    android:duration="2000"
+                    android:repeatCount="infinite"
+                    android:valueFrom="0.0"
+                    android:valueTo="0.2"
+                    android:valueType="floatType"
+                    android:startOffset="500" />
+            </aapt:attr>
+        </path>
+    </group>
+    
+</vector>

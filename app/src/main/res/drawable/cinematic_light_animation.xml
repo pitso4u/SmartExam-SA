@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    
+    <!-- Frame 1-8: Light sweep from left to right -->
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#0d4a8e15"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#1e5ba825"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#2e6bc235"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#3e7dbe45"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#4e8ecf55"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#5e9fe065"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#6eb0f175"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#7ec1f285"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <!-- Peak brightness -->
+    <item android:duration="100">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#8ed2f395"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="100">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#9ee3f4a5"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <!-- Fade back -->
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#8ed2f395"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#7ec1f285"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#6eb0f175"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#5e9fe065"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#4e8ecf55"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#3e7dbe45"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#2e6bc235"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <item android:duration="80">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#1e5ba825"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <!-- Reset to start -->
+    <item android:duration="100">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#0d4a8e15"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+
+</animation-list>

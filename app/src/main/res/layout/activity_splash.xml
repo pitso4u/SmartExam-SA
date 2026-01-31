@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cinematic_light_simple">
+
+    <!-- This layout is minimal by design -->
+    <!-- The actual splash screen is handled by the theme and SplashScreen API -->
+    <!-- This container only exists for the transition period on legacy devices -->
+
+    <!-- Logo badge - centered and prominent for legacy devices -->
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/smartexamsalogobadge"
+        android:scaleType="fitCenter"
+        android:contentDescription="SmartExam SA Logo" />
+
+</FrameLayout>

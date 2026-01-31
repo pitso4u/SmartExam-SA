@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/cinematic_light_simple"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Logo -->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/smartexamsalogobadge"
+        android:scaleType="fitCenter"
+        android:contentDescription="SmartExam SA Logo" />
+
+    <!-- Welcome Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/enterprise_surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:gravity="center">
+
+            <!-- Welcome Title -->
+            <TextView
+                android:id="@+id/tvWelcomeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to SmartExam SA! 🎓"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary_enterprise"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Trial Days -->
+            <TextView
+                android:id="@+id/tvTrialDays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="14 days remaining"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/electric_blue"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Trial Features -->
+            <TextView
+                android:id="@+id/tvTrialFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loading trial features..."
+                android:textSize="16sp"
+                android:textColor="@color/text_primary_enterprise"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Get Started Button -->
+            <Button
+                android:id="@+id/btnGetStarted"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Get Started"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/enterprise_primary"
+                android:background="@drawable/enterprise_button_emerald"
+                android:elevation="8dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Progress Indicator -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Starting automatically..."
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary_enterprise"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

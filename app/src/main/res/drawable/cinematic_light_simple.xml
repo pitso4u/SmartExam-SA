@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Base enterprise background -->
+    <item android:drawable="@color/enterprise_primary" />
+    
+    <!-- Subtle gradient overlay for depth -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="720dp"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:startColor="#001a2332"
+                android:centerColor="#0d4a8e10"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+    <!-- Cinematic light sweep effect -->
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#001a2332"
+                android:centerColor="#4e8ecf20"
+                android:endColor="#001a2332" />
+        </shape>
+    </item>
+    
+</layer-list>
