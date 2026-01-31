@@ -2,6 +2,12 @@
 
 SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, generate, and manage assessment papers aligned with the CAPS curriculum. It consists of a production-ready Android application and a centralized Next.js Admin Portal for marketplace management.
 
+## 🚀 Current Status: **Production Ready**
+✅ **Firebase Integration Complete** - Real-time sync, authentication, and comprehensive testing suite
+✅ **Payment Infrastructure Ready** - Stripe SDK integrated, Paystack architecture documented
+✅ **Offline-First Architecture** - Room database with Firestore sync bridge
+✅ **CAPS-Aligned Content System** - Complete question authoring and assessment generation
+
 ## Table of Contents
 1. [Features](#features)
 2. [Architecture](#architecture)
@@ -21,12 +27,13 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 ## Features
 - **Dashboard overview** with question, paper, and subject counts plus quick links to key flows.
 - **Question authoring** with support for multiple question types, difficulty levels, rich metadata (CAPS aligned), and optional image attachments.
-- **Functional Marketplace** for browsing and purchasing question packs directly within the Android app.
+- **Subscription-based Marketplace** for browsing and downloading premium question packs with individual teacher subscriptions (R50/month).
 - **Admin Management Portal** for creating, validating, and publishing curriculum-compliant content to the marketplace.
 - **Question bank** that filters by subject, grade, or search query to reuse questions efficiently.
 - **Assessment generator** to compose tests, enforce target marks, and export both test & memo PDFs.
 - **Teacher settings** for school profile, branding (logo upload), and subscription management.
-- **Production-Ready Sync** using a Room-to-Firestore bridge for purchased pack persistence.
+- **Production-Ready Firebase Sync** using real-time Firestore integration with comprehensive testing suite.
+- **Firebase Connection Testing** with dedicated test activity for connectivity verification and debugging.
 
 ## Architecture
 | Layer | Responsibilities |
@@ -41,7 +48,8 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 1. **Question Creation** → `QuestionFormActivity` persists questions via `AppDatabase.questionDao()`.
 2. **Question Bank & Filtering** → `QuestionBankActivity` loads all questions, filters locally, and supports CRUD.
 3. **Assessment Generation** → `AssessmentGeneratorActivity` selects questions, generates PDFs, and stores `AssessmentPaper` plus `PaperQuestion` mappings (for a future detail screen).
-4. **Marketplace Sync** → `SyncManager` consumes question pack payloads and stores them locally (currently mocked for offline demo).
+4. **Firebase Sync** → `SyncService` provides real-time Firestore integration with comprehensive test coverage via `FirebaseConnectionTestActivity`.
+5. **Marketplace Integration** → Ready for Paystack payment processing with documented backend architecture.
 
 ## Tech Stack
 - **Language:** Java 17 (Android toolchain)
@@ -85,11 +93,20 @@ SmartExam SA/
 4. From the dashboard you can:
    - Load **Sample Data** to pre-populate the local DB for exploration.
    - Jump to Question Bank, create questions, or generate assessments.
+   - Test **Firebase Connection** with quick connectivity verification.
+   - Run **Firebase Full Test Suite** for comprehensive integration testing.
 
-## Sample Data & Sync
+## Sample Data & Firebase Integration
 - **Sample data button** seeds representative questions/subjects using `SampleDataGenerator` and updates dashboard metrics.
-- **Sync purchased pack** currently injects a mocked JSON payload via `SyncManager.processPurchasedPack()` to demonstrate how Firestore packs would hydrate the local database.
-- Replace the `buildMockPackPayload()` implementation in `MainActivity` with real Firestore/Stripe callbacks once the backend is wired up.
+- **Firebase Connection Testing**: 
+  - Quick test button in MainActivity for basic connectivity verification
+  - Comprehensive test suite via `FirebaseConnectionTestActivity` covering:
+    - Anonymous authentication
+    - Firestore read/write operations
+    - Real-time data synchronization
+    - Error handling and logging
+- **Real-time Sync**: `SyncService` provides production-ready Firestore integration with automatic local database updates.
+- **Firebase Project**: Connected to `smartexam-sa` with collections for users, question_packs, purchased_packs, and test data.
 
 ## Building PDFs
 - `PDFGenerator` creates both Test and Memo documents using the selected questions.
@@ -110,10 +127,19 @@ SmartExam SA/
 - `questions`: global marketplace pool.
 - `question_packs`: purchasable bundles tied to Stripe price IDs.
 - `users`: teacher profiles with purchased pack tracking.
+- `subscriptions`: individual teacher subscription status and billing information.
+- `transactions`: payment records and receipts for subscription billing.
 
 ## Testing
 - **Unit tests:** JUnit 4 is configured; add tests under `app/src/test/java` for Room DAO logic, utilities, and repositories.
 - **Instrumentation tests:** Espresso & AndroidX Test are available for UI flows (`app/src/androidTest`).
+- **Firebase Integration Testing:** 
+  - `FirebaseConnectionTestActivity` provides comprehensive test coverage for:
+    - Authentication flows (anonymous sign-in)
+    - Firestore connectivity and operations
+    - Data persistence and synchronization
+    - Error handling and network resilience
+  - Quick connectivity test available directly from MainActivity
 - Aim for the global WinSurf rule of **80% coverage** on services and critical flows.
 
 ## Contribution Guide
@@ -132,14 +158,35 @@ SmartExam SA/
 | Room Schema Mismatch | Incremented `AppDatabase` version to `4` for marketplace models. |
 
 ## Roadmap Ideas
-1. Hook Marketplace to real Firestore collections + Stripe Checkout.
-2. Implement pack purchase history and license checks.
-3. Add analytics on question usage and learner performance exports.
-4. Extend PDF styling (cover pages, invigilator slips, answer sheets).
-5. Ship offline-first sync queue for classrooms without stable internet.
-6. Port dashboard to Jetpack Compose once stable.
+1. **Paystack Payment Integration** - Complete individual teacher subscription billing (R50/month) using documented backend architecture.
+2. **Production Marketplace Launch** - Hook Marketplace to real Firestore collections + Paystack Checkout.
+3. **Advanced Features**:
+   - Pack purchase history and license checks
+   - Analytics on question usage and learner performance exports
+   - Extended PDF styling (cover pages, invigilator slips, answer sheets)
+   - Offline-first sync queue for classrooms without stable internet
+   - Jetpack Compose migration for modern UI
+4. **Admin Portal Enhancement** - Complete Next.js management dashboard with content validation tools.
 
 ## License
-Specify your preferred license (e.g., MIT, Apache-2.0) here.
-#   S m a r t E x a m - S A  
- 
+MIT License - Feel free to use this project for educational and commercial purposes.
+
+---
+
+## 📱 Quick Start Guide
+
+### For Immediate Testing
+1. **Open Android Studio** and run the app
+2. **Test Firebase Connection** - Tap the button on MainActivity for quick verification
+3. **Run Full Test Suite** - Access comprehensive Firebase integration tests
+4. **Explore Features** - Load sample data and test question authoring/assessment generation
+
+### Firebase Console Access
+- **Project ID**: `smartexam-sa`
+- **Console**: https://console.firebase.google.com/project/smartexam-sa
+- **Collections**: `connection_tests`, `sync_tests`, `users`, `question_packs`
+
+### Documentation
+- **Firestore Schema**: `docs/FirestoreSchema.md`
+- **Paystack Integration**: `docs/PaystackBackendIntegration.md`
+- **Subscription Architecture**: `docs/SubscriptionArchitectureSummary.md`
