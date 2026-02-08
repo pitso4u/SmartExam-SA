@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Base background - enterprise dark navy -->
+    <item android:drawable="@color/enterprise_primary" />
+    
+    <!-- Animated cinematic light effect layer -->
+    <item android:gravity="center">
+        <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#0d4a8e15"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_1">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#1e5ba825"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_2">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#2e6bc235"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_3">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#3e7dbe45"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_4">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#4e8ecf55"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_5">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#5e9fe065"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_6">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#6eb0f175"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_7">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#7ec1f285"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_8">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#8ed2f395"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_9">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#9ee3f4a5"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_10">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#8ed2f395"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_11">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#7ec1f285"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_12">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#6eb0f175"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_13">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#5e9fe065"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_14">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#4e8ecf55"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_15">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#3e7dbe45"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_16">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#2e6bc235"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+            <item android:id="@+id/anim_frame_17">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="45"
+                        android:startColor="#001a2332"
+                        android:centerColor="#1e5ba825"
+                        android:endColor="#001a2332" />
+                </shape>
+            </item>
+        </animated-selector>
+    </item>
+    
+    <!-- Logo badge - centered and properly sized -->
+    <item android:width="200dp" android:height="80dp" android:gravity="center">
+        <bitmap android:src="@drawable/smartexamsalogobadge" android:gravity="center" />
+    </item>
+    
+</layer-list>

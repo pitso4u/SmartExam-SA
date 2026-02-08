@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.smartexam'
-    compileSdk 34
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "com.smartexam"
-        minSdk 26
-        targetSdk 34
+        minSdkVersion 26
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
 
@@ -36,9 +36,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    
-    // SplashScreen API for Android 12+
     implementation 'androidx.core:core-splashscreen:1.0.1'
+    
+    // Correct Google Play Billing Library for Java
+    implementation 'com.android.billingclient:billing:6.2.1'
+
     
     // Room
     implementation "androidx.room:room-runtime:2.6.1"

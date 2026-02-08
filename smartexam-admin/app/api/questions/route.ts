@@ -1,8 +1,35 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { db, isConfigured } from '@/lib/firebase-admin';
 import { Question } from '@/types';
 
+export async function GET() {
+    if (!isConfigured || !db) {
+        return NextResponse.json({ error: 'Firebase Admin not configured' }, { status: 503 });
+    }
+
+    try {
+        const snapshot = await db.collection('questions')
+            .orderBy('createdAt', 'desc')
+            .limit(100)
+            .get();
+
+        const questions = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        return NextResponse.json(questions);
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+
+
 export async function POST(req: Request) {
+    if (!isConfigured || !db) {
+        return NextResponse.json({ error: 'Firebase Admin not configured' }, { status: 503 });
+    }
+
     try {
         const question: Question = await req.json();
 

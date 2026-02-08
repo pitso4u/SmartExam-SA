@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Main secondary button gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="@color/enterprise_surface_variant"
+                android:centerColor="@color/enterprise_surface"
+                android:endColor="@color/enterprise_card"
+                android:type="linear" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Professional border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/border_enterprise" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Subtle inner shadow -->
+    <item android:top="2dp" android:left="2dp" android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000010" />
+            <corners android:radius="23dp" />
+        </shape>
+    </item>
+    
+</layer-list>

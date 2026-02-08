@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Dark secondary button -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="#2D3561"
+                android:centerColor="#242B4D"
+                android:endColor="#1A1F3A"
+                android:type="linear" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Border highlight -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#3A4566" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Top highlight -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#FFFFFF20"
+                android:endColor="#FFFFFF00"
+                android:type="linear" />
+            <corners 
+                android:topLeftRadius="25dp"
+                android:topRightRadius="25dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    
+</layer-list>

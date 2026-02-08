@@ -24,6 +24,9 @@ public interface QuestionDao {
     @Query("SELECT * FROM questions WHERE subject = :subject AND grade = :grade")
     List<Question> getQuestionsForSubject(String subject, int grade);
 
+    @Query("SELECT * FROM questions WHERE packId = :packId")
+    List<Question> getQuestionsByPackId(String packId);
+
     @Query("SELECT COUNT(*) FROM questions")
     int getQuestionCount();
 

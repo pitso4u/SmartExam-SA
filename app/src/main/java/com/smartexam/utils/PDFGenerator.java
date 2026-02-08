@@ -1,5 +1,6 @@
 package com.smartexam.utils;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -8,15 +9,15 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.smartexam.models.Question;
 import com.smartexam.models.QuestionType;
-
+import com.smartexam.subscription.SubscriptionManager;
+import android.content.Context;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,12 +50,13 @@ public class PDFGenerator {
         this.schoolName = isNullOrEmpty(schoolName) ? DEFAULT_SCHOOL_NAME : schoolName.trim();
     }
 
-    public void generateTest(String filePath, String title, String subject, int grade, List<Question> questions)
+    public void generateTest(String filePath, String title, String subject, int grade, List<Question> questions, byte[] logoBytes)
             throws DocumentException, IOException {
 
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        writer.setPageEvent(new DocumentPageNumberEvent());
+        CompanyLogoEvent event = new CompanyLogoEvent(logoBytes);
+        writer.setPageEvent(event);
         document.open();
 
         addHeader(document, title, subject, grade, questions);
@@ -63,11 +65,12 @@ public class PDFGenerator {
         document.close();
     }
 
-    public void generateMemo(String filePath, String testTitle, List<Question> questions)
+    public void generateMemo(String filePath, String testTitle, List<Question> questions, byte[] logoBytes)
             throws DocumentException, IOException {
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-        writer.setPageEvent(new DocumentPageNumberEvent());
+        CompanyLogoEvent event = new CompanyLogoEvent(logoBytes);
+        writer.setPageEvent(event);
         document.open();
 
         Paragraph pTitle = new Paragraph("MARKING GUIDELINE: " + testTitle.toUpperCase(), TITLE_FONT);
@@ -78,6 +81,19 @@ public class PDFGenerator {
         addQuestions(document, questions, true);
 
         document.close();
+    }
+
+    /**
+     * Check if watermark should be applied based on subscription status
+     */
+    private boolean shouldApplyWatermark() {
+        try {
+            SubscriptionManager subscriptionManager = SubscriptionManager.getInstance();
+            return !subscriptionManager.canPrintClean();
+        } catch (Exception e) {
+            // If subscription check fails, apply watermark for safety
+            return true;
+        }
     }
 
     private void addHeader(Document document, String title, String subject, int grade, List<Question> questions)
@@ -202,41 +218,48 @@ public class PDFGenerator {
         return questions.stream().mapToInt(Question::getMarks).sum();
     }
 
-    private static class DocumentPageNumberEvent extends PdfPageEventHelper {
+    /**
+     * Page event handler to add company logo to bottom right corner
+     */
+    private static class CompanyLogoEvent extends PdfPageEventHelper {
+        private static final float LOGO_WIDTH = 50f;
+        private static final float LOGO_HEIGHT = 50f;
+        private static final float MARGIN_RIGHT = 20f;
+        private static final float MARGIN_BOTTOM = 20f;
 
-        private static final float TEMPLATE_WIDTH = 80f;
-        private static final float TEMPLATE_HEIGHT = 16f;
-        private static final float VERTICAL_OFFSET = 15f;
+        private byte[] logoBytes;
 
-        private PdfTemplate totalTemplate;
-
-        @Override
-        public void onOpenDocument(PdfWriter writer, Document document) {
-            totalTemplate = writer.getDirectContent().createTemplate(TEMPLATE_WIDTH, TEMPLATE_HEIGHT);
+        public CompanyLogoEvent(byte[] logoBytes) {
+            this.logoBytes = logoBytes;
         }
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
-            if (totalTemplate == null) {
-                return;
+            try {
+                Image logo = loadCompanyLogo();
+                if (logo != null) {
+                    logo.scaleToFit(LOGO_WIDTH, LOGO_HEIGHT);
+                    logo.setAbsolutePosition(
+                        document.right() - LOGO_WIDTH - MARGIN_RIGHT,
+                        document.bottom() + MARGIN_BOTTOM
+                    );
+                    PdfContentByte canvas = writer.getDirectContent();
+                    canvas.addImage(logo);
+                }
+            } catch (Exception e) {
+                // Silently fail if logo can't be added
             }
-            PdfContentByte canvas = writer.getDirectContent();
-            float x = document.right() - TEMPLATE_WIDTH;
-            float y = document.bottom() - VERTICAL_OFFSET;
-            Phrase footer = new Phrase("Page " + writer.getPageNumber() + " of ", FOOTER_FONT);
-            ColumnText.showTextAligned(canvas, Element.ALIGN_RIGHT, footer, x, y, 0);
-            canvas.addTemplate(totalTemplate, x, y);
         }
 
-        @Override
-        public void onCloseDocument(PdfWriter writer, Document document) {
-            if (totalTemplate == null) {
-                return;
+        private Image loadCompanyLogo() {
+            if (logoBytes == null || logoBytes.length == 0) {
+                return null;
             }
-            int totalPages = Math.max(1, writer.getPageNumber());
-            String pageLabel = totalPages + (totalPages == 1 ? " page" : " pages");
-            ColumnText.showTextAligned(totalTemplate, Element.ALIGN_LEFT,
-                    new Phrase(pageLabel, FOOTER_FONT), 0, 0, 0);
+            try {
+                return Image.getInstance(logoBytes);
+            } catch (Exception e) {
+                return null;
+            }
         }
     }
 }

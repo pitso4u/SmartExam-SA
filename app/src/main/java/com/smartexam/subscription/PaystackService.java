@@ -51,7 +51,7 @@ public class PaystackService {
     /**
      * Create Paystack checkout URL for subscription purchase
      */
-    public void createCheckoutUrl(String email, CheckoutCallback callback) {
+    public void createCheckoutUrl(String email, long amount, String plan, CheckoutCallback callback) {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
             callback.onError("User not authenticated");
@@ -61,22 +61,28 @@ public class PaystackService {
         Map<String, Object> data = new HashMap<>();
         data.put("userId", user.getUid());
         data.put("email", email != null ? email : user.getEmail());
-        data.put("amount", 5000); // R50 in cents
+        data.put("amount", amount); // in cents
         data.put("currency", "ZAR");
-        data.put("plan", "monthly_teacher"); // Plan identifier
+        data.put("plan", plan); // Plan identifier
 
         functions
             .getHttpsCallable(FUNCTION_CREATE_CHECKOUT)
             .call(data)
             .addOnSuccessListener(task -> {
                 try {
-                    Map<String, Object> result = (Map<String, Object>) task.getData();
-                    String authorizationUrl = (String) result.get("authorizationUrl");
-                    if (authorizationUrl != null) {
-                        Log.d(TAG, "Checkout URL created successfully");
-                        callback.onSuccess(authorizationUrl);
+                    Object taskData = task.getData();
+                    if (taskData instanceof Map) {
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> result = (Map<String, Object>) taskData;
+                        String authorizationUrl = (String) result.get("authorizationUrl");
+                        if (authorizationUrl != null) {
+                            Log.d(TAG, "Checkout URL created successfully");
+                            callback.onSuccess(authorizationUrl);
+                        } else {
+                            callback.onError("Invalid response from server");
+                        }
                     } else {
-                        callback.onError("Invalid response from server");
+                        callback.onError("Invalid data format from server");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to parse checkout response", e);
@@ -101,13 +107,19 @@ public class PaystackService {
             .call(data)
             .addOnSuccessListener(task -> {
                 try {
-                    Map<String, Object> result = (Map<String, Object>) task.getData();
-                    Boolean verified = (Boolean) result.get("verified");
-                    if (verified != null) {
-                        Log.d(TAG, "Payment verification completed");
-                        callback.onSuccess(verified);
+                    Object taskData = task.getData();
+                    if (taskData instanceof Map) {
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> result = (Map<String, Object>) taskData;
+                        Boolean verified = (Boolean) result.get("verified");
+                        if (verified != null) {
+                            Log.d(TAG, "Payment verification completed");
+                            callback.onSuccess(verified);
+                        } else {
+                            callback.onError("Invalid verification response");
+                        }
                     } else {
-                        callback.onError("Invalid verification response");
+                        callback.onError("Invalid data format from server");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "Failed to parse verification response", e);
@@ -142,8 +154,14 @@ public class PaystackService {
                 .call(data);
 
             HttpsCallableResult result = Tasks.await(task);
-            Map<String, Object> resultMap = (Map<String, Object>) result.getData();
-            return (String) resultMap.get("authorizationUrl");
+            Object resultData = result.getData();
+            if (resultData instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> resultMap = (Map<String, Object>) resultData;
+                return (String) resultMap.get("authorizationUrl");
+            } else {
+                throw new RuntimeException("Invalid data format from server");
+            }
 
         } catch (ExecutionException | InterruptedException e) {
             Log.e(TAG, "Sync checkout creation failed", e);

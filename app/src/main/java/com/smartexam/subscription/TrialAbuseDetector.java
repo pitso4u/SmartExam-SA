@@ -1,9 +1,12 @@
 package com.smartexam.subscription;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -63,7 +66,7 @@ public class TrialAbuseDetector {
         report.put("details", details);
         report.put("device_hash", deviceHash);
         report.put("timestamp", System.currentTimeMillis());
-        report.put("app_version", com.smartexam.BuildConfig.VERSION_CODE);
+        report.put("app_version", 1); // Use hardcoded version for now
         
         firestore.collection("abuse_reports")
             .add(report)

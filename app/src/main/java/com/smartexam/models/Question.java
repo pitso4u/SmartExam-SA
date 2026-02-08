@@ -27,6 +27,7 @@ public class Question {
     private Map<String, String> content; // JSON blob for flexible structures
     private List<String> tags;
     private String imagePath; // Reference to local or cloud storage
+    private String packId; // Reference to the question pack this belongs to
     private int version;
     private boolean isFromMarketplace;
     private long createdAt;
@@ -133,6 +134,14 @@ public class Question {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getPackId() {
+        return packId;
+    }
+
+    public void setPackId(String packId) {
+        this.packId = packId;
     }
 
     public int getVersion() {

@@ -5,9 +5,12 @@ import { Edit3, Eye, MoreVertical, BookOpen, Target, CreditCard } from 'lucide-r
 interface PackListProps {
     packs: QuestionPack[];
     onEdit: (pack: QuestionPack) => void;
+    onView: (pack: QuestionPack) => void;
+    onDelete: (packId: string) => void;
+    onTogglePublish: (pack: QuestionPack) => void;
 }
 
-export default function PackList({ packs, onEdit }: PackListProps) {
+export default function PackList({ packs, onEdit, onView, onDelete, onTogglePublish }: PackListProps) {
     return (
         <div className="overflow-hidden">
             <table className="w-full text-left">
@@ -57,15 +60,17 @@ export default function PackList({ packs, onEdit }: PackListProps) {
                                 </div>
                             </td>
                             <td className="px-6 py-6">
-                                <span className={cn(
-                                    "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider",
-                                    pack.isPublished
-                                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-100'
-                                        : 'bg-amber-50 text-amber-600 border border-amber-100'
-                                )}>
+                                <button
+                                    onClick={() => onTogglePublish(pack)}
+                                    className={cn(
+                                        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider hover:opacity-80 transition-opacity",
+                                        pack.isPublished
+                                            ? 'bg-emerald-50 text-emerald-600 border border-emerald-100'
+                                            : 'bg-amber-50 text-amber-600 border border-amber-100'
+                                    )}>
                                     <span className={cn("w-1.5 h-1.5 rounded-full", pack.isPublished ? "bg-emerald-500" : "bg-amber-500")}></span>
                                     {pack.isPublished ? 'Published' : 'Draft'}
-                                </span>
+                                </button>
                             </td>
                             <td className="px-6 py-6 text-right">
                                 <div className="flex items-center justify-end gap-2">
@@ -76,10 +81,18 @@ export default function PackList({ packs, onEdit }: PackListProps) {
                                     >
                                         <Edit3 className="w-4 h-4" />
                                     </button>
-                                    <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all">
+                                    <button
+                                        onClick={() => onView(pack)}
+                                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all"
+                                        title="View Pack"
+                                    >
                                         <Eye className="w-4 h-4" />
                                     </button>
-                                    <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all">
+                                    <button
+                                        onClick={() => pack.id && onDelete(pack.id)}
+                                        className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                                        title="Delete Pack"
+                                    >
                                         <MoreVertical className="w-4 h-4" />
                                     </button>
                                 </div>

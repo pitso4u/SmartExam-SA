@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Shadow layer -->
+    <item android:top="6dp" android:left="6dp" android:right="6dp" android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/shadow_enterprise" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- Main enterprise card gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="@color/enterprise_surface_variant"
+                android:centerColor="@color/enterprise_surface"
+                android:endColor="@color/enterprise_card"
+                android:type="linear" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- Top highlight for 3D depth -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="@color/shadow_light"
+                android:endColor="#FFFFFF00"
+                android:type="linear" />
+            <corners 
+                android:topLeftRadius="24dp"
+                android:topRightRadius="24dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    
+    <!-- Professional border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="@color/border_enterprise" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- Subtle electric accent border -->
+    <item android:top="1dp" android:left="1dp" android:right="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="@color/border_electric" />
+            <corners android:radius="23dp" />
+        </shape>
+    </item>
+    
+</layer-list>

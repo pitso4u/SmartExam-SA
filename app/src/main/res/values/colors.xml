@@ -1,37 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- New Style Palette based on Visual Reference -->
+    <!-- SmartExam SA Enterprise-Grade Color System -->
     
-    <!-- Primary: Dark Slate/Teal -->
-    <color name="primary_slate">#334E58</color>
-    <color name="primary_slate_dark">#263C45</color>
+    <!-- Primary Dark Backgrounds (Enterprise Navy/Charcoal) -->
+    <color name="enterprise_primary">#0A0F1F</color> <!-- Deep Navy -->
+    <color name="enterprise_primary_dark">#060B17</color> <!-- Even Darker Navy -->
+    <color name="enterprise_primary_variant">#141B2D</color> <!-- Navy Variant -->
+    <color name="enterprise_surface">#1A2332</color> <!-- Surface Navy -->
+    <color name="enterprise_surface_variant">#242F42</color> <!-- Surface Variant -->
+    <color name="enterprise_card">#2A3548</color> <!-- Card Background -->
     
-    <!-- Accent: Soft Peach/Orange -->
-    <color name="accent_peach">#FFB74D</color>
-    <color name="accent_peach_dark">#F57C00</color>
-    <color name="accent_teal">#26A69A</color>
+    <!-- Electric Blue Neon Accents (Primary Action Color) -->
+    <color name="electric_blue">#00F0FF</color> <!-- Electric Blue -->
+    <color name="electric_blue_dark">#00C4D4</color> <!-- Darker Electric Blue -->
+    <color name="electric_blue_light">#33F5FF</color> <!-- Light Electric Blue -->
+    <color name="electric_blue_neon">#00F0FF88</color> <!-- Neon Glow -->
+    <color name="electric_blue_edge">#00F0FF44</color> <!-- Edge Glow -->
     
-    <!-- Backgrounds -->
-    <color name="background_cream">#FFF8E7</color>
-    <color name="surface_white">#FFFFFF</color>
+    <!-- Emerald Neon Accents (Secondary Action Color) -->
+    <color name="emerald_neon">#00FF88</color> <!-- Emerald Green -->
+    <color name="emerald_neon_dark">#00D470</color> <!-- Darker Emerald -->
+    <color name="emerald_neon_light">#33FF99</color> <!-- Light Emerald -->
+    <color name="emerald_neon_glow">#00FF8888</color> <!-- Emerald Glow -->
+    <color name="emerald_neon_edge">#00FF8844</color> <!-- Emerald Edge -->
     
-    <!-- Text -->
-    <color name="text_primary">#263C45</color>
-    <color name="text_secondary">#546E7A</color>
-    <color name="text_tertiary">#90A4AE</color>
-    <color name="text_on_primary">#FFFFFF</color>
+    <!-- Professional Text Hierarchy -->
+    <color name="text_primary_enterprise">#FFFFFF</color> <!-- Pure White -->
+    <color name="text_secondary_enterprise">#C8D3E0</color> <!-- Light Grey -->
+    <color name="text_tertiary_enterprise">#8B95A7</color> <!-- Medium Grey -->
+    <color name="text_hint_enterprise">#5A6475</color> <!-- Dark Grey -->
+    <color name="text_on_emerald">#0A0F1F</color> <!-- Text on Emerald -->
+    
+    <!-- Enterprise Gradients -->
+    <color name="gradient_enterprise_start">#0A0F1F</color>
+    <color name="gradient_enterprise_center">#141B2D</color>
+    <color name="gradient_enterprise_end">#060B17</color>
+    <color name="button_electric_start">#00F0FF</color>
+    <color name="button_electric_center">#00D4E8</color>
+    <color name="button_electric_end">#00A8C4</color>
+    <color name="button_emerald_start">#00FF88</color>
+    <color name="button_emerald_center">#00E478</color>
+    <color name="button_emerald_end">#00C460</color>
+    
+    <!-- Enterprise Shadows & Glows -->
+    <color name="shadow_enterprise">#00000066</color> <!-- Professional Shadow -->
+    <color name="shadow_light">#FFFFFF08</color> <!-- Light Highlight -->
+    <color name="glow_electric">#00F0FF66</color> <!-- Electric Blue Glow -->
+    <color name="glow_emerald">#00FF8866</color> <!-- Emerald Glow -->
+    <color name="neon_edge_electric">#00F0FFAA</color> <!-- Electric Neon Edge -->
+    <color name="neon_edge_emerald">#00FF88AA</color> <!-- Emerald Neon Edge -->
+    
+    <!-- Enterprise Borders & Dividers -->
+    <color name="border_enterprise">#3A4558</color> <!-- Professional Border -->
+    <color name="border_light">#4A5568</color> <!-- Light Border -->
+    <color name="divider_enterprise">#2A3447</color> <!-- Subtle Divider -->
+    <color name="border_electric">#00F0FF33</color> <!-- Electric Border -->
+    <color name="border_emerald">#00FF8833</color> <!-- Emerald Border -->
+    
+    <!-- Status & Navigation -->
+    <color name="status_bar_enterprise">#060B17</color>
+    <color name="navigation_bar_enterprise">#0A0F1F</color>
     
     <!-- Android Standard Overrides -->
-    <color name="purple_200">@color/accent_peach</color>
-    <color name="purple_500">@color/primary_slate</color>
-    <color name="purple_700">@color/primary_slate_dark</color>
-    <color name="teal_200">#FFCC80</color>
-    <color name="teal_700">#00796B</color>
-    <color name="black">#263C45</color>
-    <color name="white">#FFFFFF</color>
+    <color name="purple_200">@color/emerald_neon_light</color>
+    <color name="purple_500">@color/electric_blue</color>
+    <color name="purple_700">@color/electric_blue_dark</color>
+    <color name="teal_200">@color/emerald_neon_light</color>
+    <color name="teal_700">@color/emerald_neon_dark</color>
+    <color name="black">@color/enterprise_primary</color>
+    <color name="white">@color/text_primary_enterprise</color>
+    
+    <!-- Legacy Colors for backward compatibility -->
+    <color name="primary_slate">@color/electric_blue</color>
+    <color name="primary_slate_dark">@color/electric_blue_dark</color>
+    <color name="accent_peach">@color/emerald_neon</color>
+    <color name="accent_peach_dark">@color/emerald_neon_dark</color>
+    <color name="accent_teal">@color/electric_blue</color>
+    <color name="background_cream">@color/enterprise_primary</color>
+    <color name="surface_white">@color/enterprise_surface</color>
+    <color name="text_primary">@color/text_primary_enterprise</color>
+    <color name="text_secondary">@color/text_secondary_enterprise</color>
+    <color name="text_tertiary">@color/text_tertiary_enterprise</color>
+    <color name="text_on_primary">@color/enterprise_primary</color>
+    
+    <!-- Additional legacy mappings for old drawables -->
+    <color name="primary_dark">@color/enterprise_primary</color>
+    <color name="primary_dark_variant">@color/enterprise_primary_dark</color>
+    <color name="surface_dark">@color/enterprise_surface</color>
+    <color name="surface_dark_variant">@color/enterprise_surface_variant</color>
+    <color name="card_dark">@color/enterprise_card</color>
+    <color name="primary_premium">@color/electric_blue</color>
+    <color name="primary_premium_dark">@color/electric_blue_dark</color>
+    <color name="primary_premium_light">@color/electric_blue_light</color>
+    <color name="accent_premium">@color/emerald_neon</color>
+    <color name="accent_premium_dark">@color/emerald_neon_dark</color>
+    <color name="accent_premium_light">@color/emerald_neon_light</color>
+    <color name="text_primary_dark">@color/text_primary_enterprise</color>
+    <color name="text_secondary_dark">@color/text_secondary_enterprise</color>
+    <color name="text_tertiary_dark">@color/text_tertiary_enterprise</color>
+    <color name="text_hint_dark">@color/text_hint_enterprise</color>
+    <color name="text_on_primary_dark">@color/enterprise_primary</color>
+    
+    <!-- Gradient legacy mappings -->
+    <color name="gradient_start">@color/gradient_enterprise_start</color>
+    <color name="gradient_end">@color/gradient_enterprise_end</color>
+    <color name="button_gradient_start">@color/button_electric_start</color>
+    <color name="button_gradient_end">@color/button_electric_end</color>
+    
+    <!-- Glow and shadow legacy mappings -->
+    <color name="glow_premium">@color/glow_electric</color>
+    <color name="glow_accent">@color/glow_emerald</color>
+    <color name="shadow_dark">@color/shadow_enterprise</color>
+    <color name="border_dark">@color/border_enterprise</color>
+    
+    <!-- Status bar legacy mappings -->
+    <color name="status_bar">@color/status_bar_enterprise</color>
+    <color name="navigation_bar">@color/navigation_bar_enterprise</color>
     
     <!-- Difficulty Indicators -->
     <color name="difficulty_easy">#4DB6AC</color>
-    <color name="difficulty_medium">#FFB74D</color>
+    <color name="difficulty_medium">@color/emerald_neon</color>
     <color name="difficulty_hard">#E57373</color>
 </resources>

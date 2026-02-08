@@ -2,11 +2,11 @@
 
 SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, generate, and manage assessment papers aligned with the CAPS curriculum. It consists of a production-ready Android application and a centralized Next.js Admin Portal for marketplace management.
 
-## 🚀 Current Status: **Production Ready**
+## 🚀 Current Status: **Production Ready - Free Mode**
 ✅ **Firebase Integration Complete** - Real-time sync, authentication, and comprehensive testing suite
-✅ **Enterprise Trial System** - Server-side tracking with device binding and abuse prevention
+✅ **Free Access Mode** - All features 100% free until 100+ user adoptions, then subscription model activates
 ✅ **Cinematic Splash Screen** - Android 12+ SplashScreen API with professional branding
-✅ **Payment Infrastructure Ready** - Stripe SDK integrated, Paystack architecture documented
+✅ **Monetization Infrastructure Ready** - Paystack subscription system prepared for future activation
 ✅ **Offline-First Architecture** - Room database with Firestore sync bridge
 ✅ **CAPS-Aligned Content System** - Complete question authoring and assessment generation
 
@@ -29,8 +29,8 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 ## Features
 - **Dashboard overview** with question, paper, and subject counts plus quick links to key flows.
 - **Question authoring** with support for multiple question types, difficulty levels, rich metadata (CAPS aligned), and optional image attachments.
-- **Enterprise Trial System** - 14-day free trial with server-side tracking and device binding to prevent abuse.
-- **Subscription-based Marketplace** for browsing and downloading premium question packs with individual teacher subscriptions (R50/month).
+- **Paystack Subscription System** - Individual teacher subscriptions (R50/month, R500/year) with Firebase Functions integration and real-time status checks (activates after 100+ user adoptions).
+- **Marketplace Integration** - Browse and purchase premium question packs with Paystack checkout and automatic Firestore sync.
 - **Admin Management Portal** for creating, validating, and publishing curriculum-compliant content to the marketplace.
 - **Question bank** that filters by subject, grade, or search query to reuse questions efficiently.
 - **Assessment generator** to compose tests, enforce target marks, and export both test & memo PDFs.
@@ -53,8 +53,8 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 2. **Question Bank & Filtering** → `QuestionBankActivity` loads all questions, filters locally, and supports CRUD.
 3. **Assessment Generation** → `AssessmentGeneratorActivity` selects questions, generates PDFs, and stores `AssessmentPaper` plus `PaperQuestion` mappings (for a future detail screen).
 4. **Firebase Sync** → `SyncService` provides real-time Firestore integration with comprehensive test coverage via `FirebaseConnectionTestActivity`.
-5. **Enterprise Trial System** → `TrialManager` handles 14-day trials with server-side tracking, device binding, and abuse prevention via `TrialAbuseDetector`.
-6. **Marketplace Integration** → Ready for Paystack payment processing with documented backend architecture.
+5. **Subscription Management** → `SubscriptionActivity` handles Paystack subscription purchases (R50/month, R500/year) with Firebase Functions integration (activates after 100+ users).
+6. **Marketplace Integration** → `PackDetailActivity` initiates Paystack checkout for pack purchases and records transactions in Firestore.
 
 ## Tech Stack
 - **Language:** Java 17 (Android toolchain)
@@ -63,7 +63,7 @@ SmartExam SA is an end-to-end ecosystem that helps South African teachers plan, 
 - **UI libraries:** AppCompat, Material Components, ConstraintLayout, SwipeRefreshLayout
 - **Persistence:** Room 2.6.1, SharedPreferences
 - **Cloud:** Firebase Auth & Firestore (via BOM 32.7.2)
-- **Payments:** Stripe Android SDK 22.6.0
+- **Payments:** Paystack (Firebase Functions integration), Stripe Android SDK 22.6.0
 - **Documents:** iTextPDF 5.5.13.3 for test/memo export
 - **JSON:** Gson 2.10.1
 
@@ -132,10 +132,10 @@ SmartExam SA/
 - `questions`: global marketplace pool.
 - `question_packs`: purchasable bundles tied to Stripe price IDs.
 - `users`: teacher profiles with purchased pack tracking.
-- `subscriptions`: individual teacher subscription status and billing information.
+- `subscriptions`: individual teacher subscription status and billing information (activates after 100+ users).
 - `transactions`: payment records and receipts for subscription billing.
-- `trials`: enterprise trial management with device binding and abuse prevention.
-- `abuse_reports`: suspicious activity monitoring and prevention.
+- `connection_tests`: test data for connectivity verification.
+- `sync_tests`: sync operation test data.
 
 ## Testing
 - **Unit tests:** JUnit 4 is configured; add tests under `app/src/test/java` for Room DAO logic, utilities, and repositories.
@@ -165,8 +165,8 @@ SmartExam SA/
 | Room Schema Mismatch | Incremented `AppDatabase` version to `4` for marketplace models. |
 
 ## Roadmap Ideas
-1. **Paystack Payment Integration** - Complete individual teacher subscription billing (R50/month) using documented backend architecture.
-2. **Production Marketplace Launch** - Hook Marketplace to real Firestore collections + Paystack Checkout.
+1. ✅ **Paystack Payment Integration** - Complete individual teacher subscription billing (R50/month) using documented backend architecture.
+2. ✅ **Production Marketplace Launch** - Hook Marketplace to real Firestore collections + Paystack Checkout.
 3. **Advanced Features**:
    - Pack purchase history and license checks
    - Analytics on question usage and learner performance exports
@@ -191,13 +191,14 @@ MIT License - Feel free to use this project for educational and commercial purpo
 ### Firebase Console Access
 - **Project ID**: `smartexam-sa`
 - **Console**: https://console.firebase.google.com/project/smartexam-sa
-- **Collections**: `connection_tests`, `sync_tests`, `users`, `question_packs`, `trials`, `abuse_reports`
+- **Collections**: `connection_tests`, `sync_tests`, `users`, `question_packs`, `subscriptions`, `purchased_packs`
 
-### Trial System Testing
-1. **New Install Flow**: Fresh install → TermsAcceptanceActivity → TrialWelcomeActivity → MainActivity
-2. **Trial Management**: Test trial expiry, device binding, and abuse prevention
-3. **Server Verification**: Check Firestore `trials` collection for trial records
-4. **Abuse Detection**: Monitor `abuse_reports` collection for suspicious activity
+### Monetization Testing
+1. **Subscription Flow**: Navigate to SubscriptionActivity → Select monthly/yearly plan → Complete Paystack checkout (activates after 100+ users)
+2. **Marketplace Purchase**: Browse packs → Select pack → Complete Paystack checkout → Verify Firestore sync
+3. **Free Mode Verification**: Confirm all features accessible without restrictions
+4. **Firebase Verification**: Check Firestore collections `users`, `subscriptions`, `purchased_packs` for records
+5. **Webhook Testing**: Verify Paystack webhooks update subscription status in real-time (when activated)
 
 ### Documentation
 - **Firestore Schema**: `docs/FirestoreSchema.md`

@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { Package, BarChart3, Users, Settings, Activity, Database, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Package, BarChart3, Users, Settings, Activity, Database, ChevronRight, FileText, Download, UserCheck } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -16,9 +16,10 @@ interface SidebarItemProps {
     href?: string;
 }
 
-function SidebarItem({ icon, label, active = false }: SidebarItemProps) {
+function SidebarItem({ icon, label, active = false, href = "#" }: SidebarItemProps) {
     return (
-        <div
+        <a
+            href={href}
             className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 group",
                 active
@@ -35,11 +36,36 @@ function SidebarItem({ icon, label, active = false }: SidebarItemProps) {
             <span className="font-medium text-sm tracking-wide flex-1">{label}</span>
             {active && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
             {!active && <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />}
-        </div>
+        </a>
     );
 }
 
 export default function Sidebar() {
+    const [userStats, setUserStats] = useState({
+        totalUsers: 0,
+        activeUsers: 0,
+        totalInstalls: 0
+    });
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUserStats = async () => {
+            try {
+                const res = await fetch('/api/users');
+                const data = await res.json();
+                if (!data.error) {
+                    setUserStats(data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch user stats:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserStats();
+    }, []);
     return (
         <aside className="w-72 bg-slate-900 text-white h-screen flex flex-col fixed left-0 top-0 z-20 border-r border-slate-800 shadow-2xl">
             <div className="p-8">
@@ -54,11 +80,55 @@ export default function Sidebar() {
                 </div>
 
                 <nav className="space-y-2">
-                    <SidebarItem icon={<BarChart3 className="w-5 h-5" />} label="Dashboard" active />
-                    <SidebarItem icon={<Package className="w-5 h-5" />} label="Marketplace Packs" />
-                    <SidebarItem icon={<Users className="w-5 h-5" />} label="Community Creators" />
-                    <SidebarItem icon={<Activity className="w-5 h-5" />} label="Verification Log" />
+                    <SidebarItem icon={<BarChart3 className="w-5 h-5" />} label="Dashboard" active href="/" />
+                    <SidebarItem icon={<Package className="w-5 h-5" />} label="Marketplace Packs" href="/market-packs" />
+                    <SidebarItem icon={<Users className="w-5 h-5" />} label="Community Creators" href="/community-creators" />
+                    <SidebarItem icon={<Activity className="w-5 h-5" />} label="Verification Log" href="/verification-log" />
+                    <SidebarItem icon={<FileText className="w-5 h-5" />} label="Terms & Privacy" href="/terms" />
                 </nav>
+
+                {/* User Statistics Section */}
+                <div className="mt-8 p-4 bg-slate-800/40 rounded-2xl border border-slate-700/50">
+                    <div className="flex items-center gap-2 mb-4">
+                        <Download className="w-5 h-5 text-primary-400" />
+                        <h3 className="text-sm font-bold text-white">App Analytics</h3>
+                    </div>
+
+                    <div className="space-y-3">
+                        {/* Total Installs */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Download className="w-4 h-4 text-slate-400" />
+                                <span className="text-xs text-slate-300">Total Installs</span>
+                            </div>
+                            <span className="text-sm font-bold text-white">
+                                {loading ? '...' : userStats.totalInstalls.toLocaleString()}
+                            </span>
+                        </div>
+
+                        {/* Active Users */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <UserCheck className="w-4 h-4 text-emerald-400" />
+                                <span className="text-xs text-slate-300">Active Users (30d)</span>
+                            </div>
+                            <span className="text-sm font-bold text-emerald-400">
+                                {loading ? '...' : userStats.activeUsers.toLocaleString()}
+                            </span>
+                        </div>
+
+                        {/* Total Users */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Users className="w-4 h-4 text-blue-400" />
+                                <span className="text-xs text-slate-300">Registered Users</span>
+                            </div>
+                            <span className="text-sm font-bold text-blue-400">
+                                {loading ? '...' : userStats.totalUsers.toLocaleString()}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="mt-auto p-8 border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-sm">

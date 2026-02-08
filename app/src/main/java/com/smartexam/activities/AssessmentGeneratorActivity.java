@@ -1,14 +1,7 @@
 package com.smartexam.activities;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.app.DatePickerDialog;
 import android.text.format.DateFormat;
 import android.widget.EditText;
@@ -31,15 +24,8 @@ import com.smartexam.models.Question;
 import com.smartexam.models.Subject;
 import com.smartexam.models.TeacherSettings;
 import com.smartexam.preferences.TeacherSettingsRepository;
-import com.smartexam.utils.DbUtils;
 import com.smartexam.utils.PDFGenerator;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.ByteArrayOutputStream;
 
 public class AssessmentGeneratorActivity extends AppCompatActivity {
 
@@ -60,6 +46,7 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
     private TeacherSettingsRepository settingsRepository;
     private AssessmentPaper editingPaper;
     private long selectedExamDate = System.currentTimeMillis();
+    private boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +86,13 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
         btnOpenMemoPdf.setOnClickListener(v -> openPdf(lastMemoPath));
         btnClearSelection.setOnClickListener(v -> questionAdapter.clearSelection());
         btnDeletePaper.setOnClickListener(v -> deletePaper());
-        btnEditPaper.setOnClickListener(v -> prefillForEditing());
+        btnEditPaper.setOnClickListener(v -> {
+            if (isEditing) {
+                savePaperChanges();
+            } else {
+                prefillForEditing();
+            }
+        });
     }
 
     private void setupSubjectSpinner() {
@@ -150,6 +143,7 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
             toggleEditButtons(false);
             return;
         }
+        btnGenerate.setVisibility(View.GONE);
         String paperId = intent.getStringExtra("EXTRA_EDIT_PAPER_ID");
         if (paperId == null) {
             toggleEditButtons(false);
@@ -183,6 +177,7 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
         }
         questionAdapter.setQuestions(paperQuestions);
         toggleEditButtons(true);
+        setFieldsEnabled(false);
     }
 
     private void toggleEditButtons(boolean visible) {
@@ -208,7 +203,78 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
     private void prefillForEditing() {
         if (editingPaper == null) {
             Toast.makeText(this, "No paper loaded", Toast.LENGTH_SHORT).show();
+            return;
         }
+        isEditing = true;
+        setFieldsEnabled(true);
+        btnEditPaper.setText("Save");
+        btnEditPaper.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_save));
+    }
+
+    private void savePaperChanges() {
+        String title = etPaperTitle.getText().toString().trim();
+        Subject selectedSubject = (Subject) spTargetSubject.getSelectedItem();
+        String gradeStr = etTargetGrade.getText().toString().trim();
+        String marksStr = etTargetMarks.getText().toString().trim();
+
+        if (title.isEmpty() || selectedSubject == null || gradeStr.isEmpty()) {
+            Toast.makeText(this, "Title, subject and grade are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int grade;
+        int totalMarks = 0;
+        try {
+            grade = Integer.parseInt(gradeStr);
+            if (!marksStr.isEmpty()) {
+                totalMarks = Integer.parseInt(marksStr);
+            }
+        } catch (NumberFormatException ex) {
+            Toast.makeText(this, "Grade and marks must be numbers", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<Question> selectedQuestions = questionAdapter.getSelectedQuestions();
+        if (selectedQuestions.isEmpty()) {
+            Toast.makeText(this, "Please select at least one question", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        editingPaper.setTitle(title);
+        editingPaper.setSubjectId(selectedSubject.getId());
+        editingPaper.setGrade(grade);
+        editingPaper.setTotalMarks(totalMarks);
+        editingPaper.setExamDate(selectedExamDate);
+
+        List<PaperQuestion> paperQuestions = new ArrayList<>();
+        for (int i = 0; i < selectedQuestions.size(); i++) {
+            Question q = selectedQuestions.get(i);
+            paperQuestions.add(new PaperQuestion(editingPaper.getId(), q.getId(), i));
+        }
+
+        executor.execute(() -> {
+            db.runInTransaction(() -> {
+                db.paperDao().update(editingPaper);
+                db.paperDao().clearPaperQuestions(editingPaper.getId());
+                db.paperDao().insertPaperQuestions(paperQuestions);
+            });
+            runOnUiThread(() -> {
+                isEditing = false;
+                setFieldsEnabled(false);
+                btnEditPaper.setText("Edit");
+                btnEditPaper.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_edit));
+                Toast.makeText(this, "Paper updated successfully", Toast.LENGTH_SHORT).show();
+            });
+        });
+    }
+
+    private void setFieldsEnabled(boolean enabled) {
+        etPaperTitle.setEnabled(enabled);
+        spTargetSubject.setEnabled(enabled);
+        etTargetGrade.setEnabled(enabled);
+        etTargetMarks.setEnabled(enabled);
+        etExamDate.setEnabled(enabled);
+        questionAdapter.setSelectionEnabled(enabled);
     }
 
     private void setupGradeWatcher() {
@@ -283,7 +349,6 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
         String title = etPaperTitle.getText().toString().trim();
         Subject selectedSubject = (Subject) spTargetSubject.getSelectedItem();
         String gradeStr = etTargetGrade.getText().toString().trim();
-        String marksStr = etTargetMarks.getText().toString().trim();
 
         if (title.isEmpty() || selectedSubject == null || gradeStr.isEmpty()) {
             Toast.makeText(this, "Please provide the title, subject and grade", Toast.LENGTH_SHORT).show();
@@ -291,132 +356,126 @@ public class AssessmentGeneratorActivity extends AppCompatActivity {
         }
 
         int grade;
-        Integer targetMarks = null;
         try {
             grade = Integer.parseInt(gradeStr);
         } catch (NumberFormatException ex) {
-            Toast.makeText(this, "Grade and marks must be numbers", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Grade must be a number", Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if (!marksStr.isEmpty()) {
-            try {
-                targetMarks = Integer.parseInt(marksStr);
-            } catch (NumberFormatException ex) {
-                Toast.makeText(this, "Total marks must be a number", Toast.LENGTH_SHORT).show();
-                return;
-            }
         }
 
         List<Question> selectedQuestions = questionAdapter.getSelectedQuestions();
-        int selectedMarks = questionAdapter.getSelectedMarksTotal();
-
         if (selectedQuestions.isEmpty()) {
-            Toast.makeText(this, "Select at least one question", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select at least one question", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (targetMarks != null && selectedMarks != targetMarks) {
-            Toast.makeText(this,
-                    "Warning: Selected marks (" + selectedMarks + ") differ from target (" + targetMarks + ")",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-        TeacherSettings teacherSettings = settingsRepository.getSettings();
-        pdfGenerator.configureSchoolDetails(
-                teacherSettings.getSchoolName(),
-                teacherSettings.getTeacherName(),
-                teacherSettings.getSchoolLogoPath());
-
-        setLoading(true);
-        showStatus("Generating assessment...", false);
-        toggleResultButtons(false);
+        progressGenerating.setVisibility(View.VISIBLE);
+        tvStatus.setVisibility(View.VISIBLE);
+        tvStatus.setText("Generating assessment...");
+        btnGenerate.setEnabled(false);
 
         executor.execute(() -> {
             try {
-                File dir = getExternalFilesDir(null);
-                String testPath = new File(dir, "Test_" + System.currentTimeMillis() + ".pdf").getAbsolutePath();
-                String memoPath = new File(dir, "Memo_" + System.currentTimeMillis() + ".pdf").getAbsolutePath();
+                TeacherSettings settings = settingsRepository.getSettings();
+                pdfGenerator.configureSchoolDetails(settings.getSchoolName(), settings.getTeacherName(), settings.getSchoolLogoPath());
 
-                pdfGenerator.generateTest(testPath, title, selectedSubject.getName(), grade, selectedQuestions);
-                pdfGenerator.generateMemo(memoPath, title, selectedQuestions);
+                // Load company logo from drawable resources
+                byte[] logoBytes = loadCompanyLogoBytes();
 
-                AssessmentPaper paper = new AssessmentPaper();
-                paper.setTitle(title);
-                paper.setSubjectId(selectedSubject.getId());
-                paper.setGrade(grade);
-                paper.setTotalMarks(selectedMarks);
-                paper.setFilePath(testPath);
+                String safeTitle = title.replaceAll("[^a-zA-Z0-9_\\s-]", "").replace(" ", "_");
+                File documentsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+                if (documentsDir != null && !documentsDir.exists()) {
+                    documentsDir.mkdirs();
+                }
+                String testFileName = "Test_" + safeTitle + "_" + System.currentTimeMillis() + ".pdf";
+                String memoFileName = "Memo_" + safeTitle + "_" + System.currentTimeMillis() + ".pdf";
 
-                db.paperDao().insert(paper);
+                File testFile = new File(documentsDir, testFileName);
+                File memoFile = new File(documentsDir, memoFileName);
 
-                // Track questions used in paper
+                lastTestPath = testFile.getAbsolutePath();
+                lastMemoPath = memoFile.getAbsolutePath();
+
+                pdfGenerator.generateTest(lastTestPath, title, selectedSubject.getName(), grade, selectedQuestions, logoBytes);
+                pdfGenerator.generateMemo(lastMemoPath, title, selectedQuestions, logoBytes);
+
+                AssessmentPaper newPaper = new AssessmentPaper();
+                newPaper.setTitle(title);
+                newPaper.setSubjectId(selectedSubject.getId());
+                newPaper.setGrade(grade);
+                newPaper.setTotalMarks(questionAdapter.getSelectedMarksTotal());
+                newPaper.setExamDate(selectedExamDate);
+                newPaper.setFilePath(lastTestPath);
+
                 List<PaperQuestion> paperQuestions = new ArrayList<>();
                 for (int i = 0; i < selectedQuestions.size(); i++) {
-                    paperQuestions.add(new PaperQuestion(paper.getId(), selectedQuestions.get(i).getId(), i + 1));
+                    paperQuestions.add(new PaperQuestion(newPaper.getId(), selectedQuestions.get(i).getId(), i));
                 }
-                db.paperDao().insertPaperQuestions(paperQuestions);
 
-                lastTestPath = testPath;
-                lastMemoPath = memoPath;
+                db.runInTransaction(() -> {
+                    db.paperDao().insert(newPaper);
+                    db.paperDao().insertPaperQuestions(paperQuestions);
+                });
 
                 runOnUiThread(() -> {
-                    setLoading(false);
-                    showStatus("Success! Paper saved.", false);
-                    toggleResultButtons(true);
-                    Toast.makeText(this, "Assessment generated successfully", Toast.LENGTH_LONG).show();
+                    progressGenerating.setVisibility(View.GONE);
+                    tvStatus.setText("Successfully generated!");
+                    btnGenerate.setEnabled(true);
+                    btnOpenTestPdf.setVisibility(View.VISIBLE);
+                    btnOpenMemoPdf.setVisibility(View.VISIBLE);
+                    Toast.makeText(AssessmentGeneratorActivity.this, "Assessment generated!", Toast.LENGTH_LONG).show();
                 });
 
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
-                    setLoading(false);
-                    showStatus("Error generating PDF", true);
+                    progressGenerating.setVisibility(View.GONE);
+                    tvStatus.setText("Error generating PDF.");
+                    btnGenerate.setEnabled(true);
+                    Toast.makeText(AssessmentGeneratorActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
             }
         });
     }
 
-    private void setLoading(boolean loading) {
-        btnGenerate.setEnabled(!loading);
-        progressGenerating.setVisibility(loading ? View.VISIBLE : View.GONE);
-    }
-
-    private void showStatus(String message, boolean isError) {
-        tvStatus.setVisibility(View.VISIBLE);
-        int color = ContextCompat.getColor(this,
-                isError ? android.R.color.holo_red_dark : R.color.teal_700);
-        tvStatus.setTextColor(color);
-        tvStatus.setText(message);
-    }
-
-    private void toggleResultButtons(boolean visible) {
-        int visibility = visible ? View.VISIBLE : View.GONE;
-        btnOpenTestPdf.setVisibility(visibility);
-        btnOpenMemoPdf.setVisibility(visibility);
-    }
-
     private void openPdf(String path) {
         if (path == null) {
-            Toast.makeText(this, "Generate an assessment first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File not available", Toast.LENGTH_SHORT).show();
             return;
         }
-
         File file = new File(path);
-        if (!file.exists()) {
-            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
+        Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         try {
             startActivity(intent);
-        } catch (Exception ex) {
-            Toast.makeText(this, "No PDF viewer available", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "No app to view PDF", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Load company logo from drawable resources and convert to byte array
+     */
+    private byte[] loadCompanyLogoBytes() {
+        try {
+            // Load drawable as bitmap
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.smartexamsalogo);
+            if (bitmap == null) {
+                return null;
+            }
+
+            // Convert bitmap to PNG byte array
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            stream.close();
+
+            return byteArray;
+        } catch (Exception e) {
+            // Silently fail if logo can't be loaded
+            return null;
         }
     }
 }

@@ -37,13 +37,42 @@ Bundled questions for the marketplace.
 ```
 
 ### `users`
-Teacher profiles and ownership tracking.
+Teacher profiles and subscription tracking. Document ID = firebaseAuthUid
 
 ```json
 {
-  "email": "teacher@school.za",
-  "displayName": "Mr. Smith",
-  "purchasedPacks": ["pack_id_1", "pack_id_2"],
-  "subscriptionStatus": "premium"
+  "email": "teacher@school.co.za",
+  "role": "teacher",
+  "trialStartDate": "2026-02-01T00:00:00Z",
+  "subscription": {
+    "status": "trial",
+    "paystackCustomerCode": null,
+    "paystackSubscriptionCode": null,
+    "currentPeriodEnd": null
+  },
+  "createdAt": "2026-02-01T00:00:00Z"
+}
+```
+
+#### Subscription Status Values
+- `trial` - User is in 14-day trial period
+- `active` - Paid subscription is active
+- `expired` - Subscription has expired
+- `cancelled` - Subscription was cancelled
+
+### `subscription_events`
+Paystack webhook events for audit trail
+
+```json
+{
+  "userId": "firebaseAuthUid",
+  "eventType": "subscription.create",
+  "paystackEventId": "evt_xxxxx",
+  "data": {
+    "subscription_code": "SUB_xxxxx",
+    "customer_code": "CUS_xxxxx",
+    "next_payment_date": "2026-03-01T00:00:00Z"
+  },
+  "processedAt": "2026-02-01T00:00:00Z"
 }
 ```

@@ -2,146 +2,109 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_cream"
+    android:background="@drawable/enterprise_background"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="0dp"
         android:gravity="center_horizontal">
 
-    <!-- Header / Branding -->
+    <!-- Enterprise Header Card - Clean Professional Design -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginBottom="48dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/enterprise_card"
+        android:elevation="6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp">
         
-        <!-- Placeholder for Logo if needed, using text for now -->
-        <TextView
-            android:id="@+id/tvLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Social Network"
-            android:textSize="20sp"
-            android:textColor="@color/text_secondary"
-            android:letterSpacing="0.1"
-            android:layout_marginBottom="8dp"/>
+        <!-- Company Logo - Increased Width -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="357dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:contentDescription="SmartExam SA Logo"
+            android:elevation="3dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/smartexamsalogo" />
 
+        <!-- Enterprise Title - Tight Spacing -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
             android:text="SmartExam SA"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_slate" />
+            android:textAppearance="@style/TextAppearance.Enterprise.Headline2"
+            android:textColor="@color/text_primary_enterprise"
+            android:shadowColor="@color/electric_blue_neon"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="16"
+            android:elevation="8dp" />
             
+        <!-- Professional Subtitle - No Margin -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mobile app"
-            android:textSize="16sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="0dp"
+            android:text="Enterprise Assessment Platform"
+            android:textAppearance="@style/TextAppearance.Enterprise.Subtitle1"
+            android:textColor="@color/text_secondary_enterprise"
+            android:elevation="4dp" />
+            
+        <!-- Enterprise Divider - Minimal -->
+        <View
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/enterprise_button_emerald"
+            android:elevation="4dp" />
         </LinearLayout>
 
-
-
-    <!-- Main Actions -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCreateQuestion"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Create New Question" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnQuestionBank"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Browse Question Bank" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGenerateTest"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Generate Assessment" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnMarketplace"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Open Marketplace"
-        android:backgroundTint="@color/accent_teal"
-        android:textColor="@color/surface_white"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSettings"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Teacher Settings"
-        android:backgroundTint="@color/surface_white"
-        android:textColor="@color/primary_slate"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLoadSampleData"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Load Sample CAPS Data"
-        android:visibility="gone"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSyncPurchasedPack"
-        style="@style/Widget.App.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Sync Purchased Pack"
-        android:backgroundTint="@color/surface_white"
-        android:textColor="@color/primary_slate"/>
-
-    <!-- Stats Card -->
+    <!-- Enterprise Stats Card - Moved Above Buttons -->
     <androidx.cardview.widget.CardView
-        style="@style/Widget.App.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:layout_marginBottom="6dp"
+        android:elevation="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp"
+            android:background="@drawable/enterprise_card"
+            android:padding="20dp"
             android:gravity="center">
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LOCAL REPOSITORY"
-                android:textSize="12sp"
-                android:letterSpacing="0.2"
-                android:textColor="@color/text_secondary"
-                android:textStyle="bold"/>
+                android:textAppearance="@style/TextAppearance.Enterprise.Overline"
+                android:textColor="@color/text_secondary_enterprise"
+                android:elevation="6dp" />
                 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -156,16 +119,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Questions"
-                        android:textColor="@color/text_secondary"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Caption"
+                        android:textColor="@color/text_secondary_enterprise" />
 
                     <TextView
                         android:id="@+id/tvQuestionCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_slate"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Headline4"
+                        android:textColor="@color/electric_blue"
+                        android:shadowColor="@color/electric_blue_neon"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="12"
+                        android:elevation="6dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,16 +147,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Papers"
-                        android:textColor="@color/text_secondary"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Caption"
+                        android:textColor="@color/text_secondary_enterprise" />
 
                     <TextView
                         android:id="@+id/tvPaperCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_slate"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Headline4"
+                        android:textColor="@color/electric_blue"
+                        android:shadowColor="@color/electric_blue_neon"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="12"
+                        android:elevation="6dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -202,47 +175,99 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Subjects"
-                        android:textColor="@color/text_secondary"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Caption"
+                        android:textColor="@color/text_secondary_enterprise" />
 
                     <TextView
                         android:id="@+id/tvSubjectCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_slate"/>
+                        android:textAppearance="@style/TextAppearance.Enterprise.Headline4"
+                        android:textColor="@color/electric_blue"
+                        android:shadowColor="@color/electric_blue_neon"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="12"
+                        android:elevation="6dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Enterprise Action Buttons with Clean Neon Effects -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateQuestion"
+        style="@style/Widget.App.Button.Electric"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="24dp"
+        android:text="CREATE NEW QUESTION" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnQuestionBank"
+        style="@style/Widget.App.Button.Electric"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="16dp"
+        android:text="BROWSE QUESTION BANK" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGenerateTest"
+        style="@style/Widget.App.Button.Electric"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="16dp"
+        android:text="GENERATE ASSESSMENT" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMarketplace"
+        style="@style/Widget.App.Button.Emerald"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="24dp"
+        android:text="OPEN MARKETPLACE" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSettings"
+        style="@style/Widget.App.Button.Secondary"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="16dp"
+        android:text="TEACHER SETTINGS" />
+
+    <!-- Recent Papers Section -->
     <TextView
         android:id="@+id/tvRecentPapersTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Recent Papers"
-        android:textColor="@color/primary_slate"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textAppearance="@style/TextAppearance.Enterprise.Headline5"
+        android:textColor="@color/text_primary_enterprise"
+        android:shadowColor="@color/electric_blue_edge"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="8"
+        android:elevation="6dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecentPapers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:elevation="8dp" />
 
     <TextView
         android:id="@+id/tvEmptyState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="No papers yet. Generate one to get started!"
-        android:textColor="@color/text_secondary"
-        android:visibility="gone"/>
+        android:textAppearance="@style/TextAppearance.Enterprise.Body2"
+        android:textColor="@color/text_tertiary_enterprise"
+        android:visibility="gone" />
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-

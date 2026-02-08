@@ -13,7 +13,7 @@ import com.smartexam.models.QuestionPack;
 import com.smartexam.models.Subject;
 
 @Database(entities = { Question.class, Subject.class, AssessmentPaper.class,
-        PaperQuestion.class, QuestionPack.class, PurchasedPack.class }, version = 4, exportSchema = false)
+        PaperQuestion.class, QuestionPack.class, PurchasedPack.class }, version = 5, exportSchema = false)
 @TypeConverters({ Converters.class })
 public abstract class AppDatabase extends RoomDatabase {
 

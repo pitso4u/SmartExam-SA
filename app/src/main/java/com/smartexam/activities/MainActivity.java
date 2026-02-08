@@ -2,6 +2,7 @@ package com.smartexam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         setupListeners();
+        checkFirstTimeUser();
         checkEmptyDatabase();
     }
 
@@ -95,25 +97,29 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnSettings).setOnClickListener(v -> {
             startActivity(new Intent(this, SettingsActivity.class));
         });
+    }
 
-        findViewById(R.id.btnLoadSampleData).setOnClickListener(v -> {
-            v.setVisibility(View.GONE);
-            Toast.makeText(this, "Loading sample data...", Toast.LENGTH_SHORT).show();
-            new SampleDataGenerator(this).generateSampleData(this::loadDashboardData);
-        });
-
-        findViewById(R.id.btnSyncPurchasedPack).setOnClickListener(v -> {
-            Toast.makeText(this, "Syncing purchased pack...", Toast.LENGTH_SHORT).show();
-            syncManager.processPurchasedPack(buildMockPackPayload());
-            rvRecentPapers.postDelayed(this::loadDashboardData, 800);
-        });
+    private void checkFirstTimeUser() {
+        // Check if user is registered
+        com.smartexam.preferences.TeacherSettingsRepository settingsRepository = 
+            new com.smartexam.preferences.TeacherSettingsRepository(this);
+        com.smartexam.models.TeacherSettings settings = settingsRepository.getSettings();
+        
+        if (settings.getTeacherName().isEmpty()) {
+            // First time user - show registration
+            startActivity(new Intent(this, RegistrationActivity.class));
+            finish();
+        }
     }
 
     private void checkEmptyDatabase() {
         new Thread(() -> {
             int count = db.questionDao().getQuestionCount();
             if (count == 0) {
-                runOnUiThread(() -> findViewById(R.id.btnLoadSampleData).setVisibility(View.VISIBLE));
+                runOnUiThread(() -> {
+                    // Show empty state message instead of sample data button
+                    tvEmptyState.setText("No questions yet. Create your first question to get started!");
+                });
             }
         }).start();
     }

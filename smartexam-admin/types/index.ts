@@ -12,6 +12,7 @@ export type QuestionType =
 export interface Question {
     id?: string;
     capsTopicId: string;
+    topic: string;
     subject: string;
     grade: number;
     term: number;

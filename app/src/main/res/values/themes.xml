@@ -55,9 +55,10 @@
     <style name="Theme.SmartExamSA.Splash" parent="Theme.SplashScreen">
         <!-- Splash Screen API Configuration -->
         <item name="windowSplashScreenBackground">@color/enterprise_primary</item>
-        <item name="windowSplashScreenIcon">@drawable/smartexamsalogobadge</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/smartexamsalogobadge</item>
         <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.SmartExamSA</item>
         
         <!-- Fallback theme for pre-Android 12 -->
         <item name="android:windowBackground">@drawable/cinematic_light_simple</item>

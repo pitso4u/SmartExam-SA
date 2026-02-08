@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Background gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="@color/button_gradient_start"
+                android:endColor="@color/button_gradient_end"
+                android:type="linear" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- Top highlight for 3D effect -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/shadow_light" />
+            <corners 
+                android:topLeftRadius="24dp"
+                android:topRightRadius="24dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    
+    <!-- Soft glow effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/glow_premium" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+</layer-list>

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import com.smartexam.R;
 import com.smartexam.subscription.TrialManager;
@@ -37,6 +38,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         initViews();
         setupTermsText();
         setupListeners();
+        setupOnBackPressed();
     }
     
     private void initViews() {
@@ -55,7 +57,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         TextView termsText = findViewById(R.id.tvTermsLink);
         String termsContent = "Read our full Terms & Conditions";
         SpannableString termsSpannable = new SpannableString(termsContent);
-        Linkify.addLinks(termsSpannable, Linkify.ALL);
+        Linkify.addLinks(termsSpannable, Linkify.WEB_URLS);
         termsText.setText(termsSpannable);
         termsText.setMovementMethod(LinkMovementMethod.getInstance());
         
@@ -63,7 +65,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         TextView privacyText = findViewById(R.id.tvPrivacyLink);
         String privacyContent = "Read our Privacy Policy";
         SpannableString privacySpannable = new SpannableString(privacyContent);
-        Linkify.addLinks(privacySpannable, Linkify.ALL);
+        Linkify.addLinks(privacySpannable, Linkify.WEB_URLS);
         privacyText.setText(privacySpannable);
         privacyText.setMovementMethod(LinkMovementMethod.getInstance());
         
@@ -81,6 +83,17 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         
         // Continue button click listener
         continueButton.setOnClickListener(v -> handleTermsAcceptance());
+    }
+
+    private void setupOnBackPressed() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Prevent back navigation - terms must be accepted
+                // This is a legal requirement for trial activation
+                Toast.makeText(TermsAcceptanceActivity.this, "You must accept the terms to continue", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     
     private void validateContinueButton() {
@@ -138,12 +151,5 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         continueButton.setEnabled(true);
         continueButton.setText("Continue");
         validateContinueButton(); // Re-check checkbox state
-    }
-    
-    @Override
-    public void onBackPressed() {
-        // Prevent back navigation - terms must be accepted
-        // This is a legal requirement for trial activation
-        Toast.makeText(this, "You must accept the terms to continue", Toast.LENGTH_SHORT).show();
     }
 }

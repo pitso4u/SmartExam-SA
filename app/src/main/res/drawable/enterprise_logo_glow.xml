@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    
+    <!-- Enterprise glow effect for logo -->
+    <gradient
+        android:angle="0"
+        android:startColor="@color/electric_blue_neon"
+        android:centerColor="@color/glow_electric"
+        android:endColor="@color/electric_blue_edge"
+        android:gradientRadius="180dp"
+        android:type="radial" />
+        
+    <size
+        android:width="360dp"
+        android:height="360dp" />
+        
+</shape>

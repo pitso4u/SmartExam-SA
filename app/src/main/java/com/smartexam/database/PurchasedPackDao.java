@@ -12,6 +12,9 @@ public interface PurchasedPackDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PurchasedPack purchasedPack);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<PurchasedPack> purchasedPacks);
+
     @Query("SELECT * FROM purchased_packs")
     List<PurchasedPack> getAllPurchasedPacks();
 

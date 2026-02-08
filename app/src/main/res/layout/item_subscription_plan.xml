@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/enterprise_surface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Plan Title and Price -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Monthly Plan"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary_enterprise" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R50.00"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/electric_blue" />
+
+        </LinearLayout>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Perfect for individual teachers"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary_enterprise"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Billing Period -->
+        <TextView
+            android:id="@+id/tvBillingPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Billed monthly"
+            android:textSize="12sp"
+            android:textColor="@color/text_tertiary_enterprise"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Subscribe Button -->
+        <Button
+            android:id="@+id/btnSubscribe"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Subscribe"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/enterprise_primary"
+            android:background="@drawable/enterprise_button_electric"
+            android:elevation="4dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

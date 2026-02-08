@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Terms & Conditions"
+            android:text="Terms &amp; Conditions"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary_enterprise"
@@ -71,6 +71,7 @@
                     android:id="@+id/tvTrialDisclosure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="This app includes a 14-day free trial. After the trial, continued use requires an active subscription."
                     android:textSize="14sp"
                     android:textColor="@color/text_primary_enterprise"
                     android:lineSpacingExtra="2dp" />
@@ -98,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="I agree to the Terms & Conditions"
+                android:text="I agree to the Terms &amp; Conditions"
                 android:textSize="16sp"
                 android:textColor="@color/text_primary_enterprise" />
 
@@ -108,7 +109,7 @@
             android:id="@+id/tvTermsLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Read our full Terms & Conditions"
+            android:text="Read our full Terms &amp; Conditions"
             android:textSize="14sp"
             android:textColor="@color/electric_blue"
             android:layout_marginStart="40dp"
@@ -121,7 +122,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp"
+            android.layout_marginBottom="16dp"
             android:padding="8dp">
 
             <CheckBox

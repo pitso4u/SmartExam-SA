@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Base gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:startColor="#1A237E"
+                android:centerColor="#283593"
+                android:endColor="#3949AB"
+                android:type="linear" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    
+    <!-- Top highlight for 3D effect -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:height="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#FFFFFF20"
+                android:endColor="#FFFFFF00"
+                android:type="linear" />
+            <corners 
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    
+    <!-- Subtle glow border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#00D4FF33" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    
+    <!-- Inner shadow effect -->
+    <item android:top="2dp" android:left="2dp" android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000020" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    
+</layer-list>

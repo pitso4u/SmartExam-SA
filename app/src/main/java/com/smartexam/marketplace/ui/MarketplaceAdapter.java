@@ -70,7 +70,7 @@ public class MarketplaceAdapter extends RecyclerView.Adapter<MarketplaceAdapter.
             // purchased
             // This logic will be improved when integrated with the Repository check
             tvPackPrice.setText(String.format("R%.2f", pack.getPriceCents() / 100.0));
-            tvPackPrice.setTextColor(itemView.getContext().getResources().getColor(android.R.color.holo_green_dark));
+            tvPackPrice.setTextColor(itemView.getContext().getResources().getColor(android.R.color.holo_green_dark, null));
 
             itemView.setOnClickListener(v -> listener.onPackClick(pack));
         }

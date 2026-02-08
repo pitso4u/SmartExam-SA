@@ -4,8 +4,33 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Using a generic white foreground for now, but pointing to the bitmap icon for the actual launcher is better -->
+    
+    <!-- Electric blue glow circle background -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M54,18L24,34v40l30,16l30,-16V34L54,18z" />
+        android:fillColor="@color/electric_blue_neon"
+        android:pathData="M54,20c-18.8,0-34,15.2-34,34s15.2,34,34,34s34-15.2,34-34S72.8,20,54,20z" />
+    
+    <!-- Inner circle for logo background -->
+    <path
+        android:fillColor="@color/enterprise_primary"
+        android:pathData="M54,26c-15.5,0-28,12.5-28,28s12.5,28,28,28s28-12.5,28-28S69.5,26,54,26z" />
+    
+    <!-- SmartExam SA text representation -->
+    <path
+        android:fillColor="@color/electric_blue"
+        android:pathData="M30,45h48v4h-48z" />
+    <path
+        android:fillColor="@color/electric_blue"
+        android:pathData="M30,52h36v4h-36z" />
+    <path
+        android:fillColor="@color/electric_blue"
+        android:pathData="M30,59h42v4h-42z" />
+    
+    <!-- SA accent -->
+    <path
+        android:fillColor="@color/emerald_neon"
+        android:pathData="M66,66h12v4h-12z" />
+    <path
+        android:fillColor="@color/emerald_neon"
+        android:pathData="M66,72h8v2h-8z" />
 </vector>

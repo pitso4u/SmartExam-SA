@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simple Firebase Auth Test"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Ready"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#E3F2FD"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#1976D2" />
+
+    <Button
+        android:id="@+id/btnAnonymousSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In Anonymously"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#4CAF50" />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FF5722" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Information:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No user information available"
+        android:textSize="14sp"
+        android:background="#F5F5F5"
+        android:padding="16dp"
+        android:minHeight="120dp"
+        android:fontFamily="monospace" />
+
+</LinearLayout>

@@ -1,13 +1,18 @@
 package com.smartexam.marketplace.data;
 
 import android.content.Context;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.smartexam.database.AppDatabase;
 import com.smartexam.models.QuestionPack;
 import com.smartexam.models.PurchasedPack;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Repository for handling Marketplace data with production Firestore
@@ -19,11 +24,13 @@ public class MarketplaceRepository {
     private final FirebaseFirestore db;
     private final AppDatabase localDb;
     private final Context context;
+    private final FirebaseAuth auth;
 
     private MarketplaceRepository(Context context, AppDatabase localDb) {
         this.db = FirebaseFirestore.getInstance();
         this.localDb = localDb;
         this.context = context.getApplicationContext();
+        this.auth = FirebaseAuth.getInstance();
     }
 
     public static synchronized MarketplaceRepository getInstance(Context context, AppDatabase localDb) {
@@ -70,9 +77,39 @@ public class MarketplaceRepository {
 
         new Thread(() -> {
             try {
+                FirebaseUser user = auth.getCurrentUser();
+                if (user == null) {
+                    callback.onError("User not authenticated");
+                    return;
+                }
+
+                String userId = user.getUid();
+                String email = user.getEmail();
+
+                // Create user record in Firestore if not exists
+                Map<String, Object> userData = new HashMap<>();
+                userData.put("userId", userId);
+                userData.put("email", email != null ? email : "");
+                userData.put("createdAt", System.currentTimeMillis());
+
+                Tasks.await(db.collection("users").document(userId).set(userData));
+
+                // Add purchased pack to user's purchased_packs collection
+                Map<String, Object> packData = new HashMap<>();
+                packData.put("packId", purchasedPack.getPackId());
+                packData.put("transactionId", purchasedPack.getTransactionId());
+                packData.put("purchasedAt", purchasedPack.getPurchasedAt());
+                packData.put("synced", purchasedPack.isSynced());
+
+                Tasks.await(db.collection("users").document(userId)
+                        .collection("purchased_packs").document(packId).set(packData));
+
+                // Insert into local DB
                 localDb.purchasedPackDao().insert(purchasedPack);
+
                 // Trigger background sync
                 com.smartexam.marketplace.services.SyncService.enqueueWork(context, packId);
+
                 callback.onSuccess(true);
             } catch (Exception e) {
                 callback.onError(e.getMessage());

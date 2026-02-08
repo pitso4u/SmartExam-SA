@@ -199,10 +199,11 @@ public class SubscriptionManager {
 
     /**
      * Check if user can print without watermark
+     * In free mode, always return true until 100+ users
      */
     public boolean canPrintClean() {
-        UserSubscription sub = getCachedSubscription();
-        return sub != null && !sub.shouldApplyWatermark();
+        // Free mode: no watermark restrictions
+        return true;
     }
 
     /**

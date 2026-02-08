@@ -16,7 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.smartexam.BuildConfig;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -117,7 +117,7 @@ public class TrialManager {
         trialData.put("trial_end", currentTime + TRIAL_DURATION_MS);
         trialData.put("device_hash", deviceHash);
         trialData.put("terms_accepted", currentTime);
-        trialData.put("app_version", BuildConfig.VERSION_CODE);
+        trialData.put("app_version", 1); // Temporarily hardcoded
         trialData.put("created_at", currentTime);
         trialData.put("status", "active");
         

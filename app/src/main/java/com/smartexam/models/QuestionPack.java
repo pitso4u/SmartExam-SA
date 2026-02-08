@@ -10,6 +10,7 @@ import java.util.List;
 @Entity(tableName = "question_packs")
 @TypeConverters({ Converters.class })
 public class QuestionPack {
+    @com.google.firebase.firestore.DocumentId
     @PrimaryKey
     @NonNull
     private String id;
@@ -26,6 +27,7 @@ public class QuestionPack {
     private int version;
     private boolean isPublished;
     private long createdAt;
+    private boolean isPurchased;
 
     @NonNull
     public String getId() {
@@ -138,5 +140,17 @@ public class QuestionPack {
 
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isPurchased() {
+        return isPurchased;
+    }
+
+    public void setPurchased(boolean purchased) {
+        isPurchased = purchased;
+    }
+
+    public String getFormattedPrice() {
+        return String.format("R%.2f", priceCents / 100.0);
     }
 }

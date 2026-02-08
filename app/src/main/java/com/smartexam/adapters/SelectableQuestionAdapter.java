@@ -24,9 +24,15 @@ public class SelectableQuestionAdapter extends RecyclerView.Adapter<SelectableQu
     private final List<Question> questions = new ArrayList<>();
     private final Set<String> selectedIds = new HashSet<>();
     private final OnSelectionChangedListener listener;
+    private boolean isSelectionEnabled = true;
 
     public SelectableQuestionAdapter(OnSelectionChangedListener listener) {
         this.listener = listener;
+    }
+
+    public void setSelectionEnabled(boolean enabled) {
+        this.isSelectionEnabled = enabled;
+        notifyDataSetChanged();
     }
 
     public void setQuestions(List<Question> newQuestions) {
@@ -95,37 +101,30 @@ public class SelectableQuestionAdapter extends RecyclerView.Adapter<SelectableQu
 
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
-        Question question = questions.get(position);
-        holder.tvTopic.setText(question.getTopic() != null ? question.getTopic() : asPlaceholder("No topic"));
-        holder.tvQuestionText.setText(question.getQuestionText() != null ? question.getQuestionText() : "");
-        holder.tvMetadata.setText(metadata.toString());
+        Question q = questions.get(position);
+        holder.tvQuestionText.setText(q.getQuestionText());
 
-        if (question.getCognitiveLevel() != null) {
-            holder.tvCognitiveLevel.setVisibility(View.VISIBLE);
-            holder.tvCognitiveLevel.setText(question.getCognitiveLevel().name());
-        } else {
-            holder.tvCognitiveLevel.setVisibility(View.GONE);
-        }
+        String metadata = "Marks: " + q.getMarks() + " | Difficulty: " + q.getDifficulty();
+        holder.tvMetadata.setText(metadata);
 
-        if (question.getType() != null) {
-            holder.tvQuestionType.setVisibility(View.VISIBLE);
-            holder.tvQuestionType.setText(question.getType().name());
-        } else {
-            holder.tvQuestionType.setVisibility(View.GONE);
-        }
+        holder.cbSelect.setVisibility(isSelectionEnabled ? View.VISIBLE : View.GONE);
+        holder.cbSelect.setChecked(selectedIds.contains(q.getId()));
 
-        holder.cbSelect.setOnCheckedChangeListener(null);
-        holder.cbSelect.setChecked(selectedIds.contains(question.getId()));
-        holder.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                selectedIds.add(question.getId());
-            } else {
-                selectedIds.remove(question.getId());
+        holder.itemView.setOnClickListener(v -> {
+            if (isSelectionEnabled) {
+                toggleSelection(q);
             }
-            notifySelectionChanged();
         });
+    }
 
-        holder.itemView.setOnClickListener(v -> holder.cbSelect.performClick());
+    private void toggleSelection(Question q) {
+        if (selectedIds.contains(q.getId())) {
+            selectedIds.remove(q.getId());
+        } else {
+            selectedIds.add(q.getId());
+        }
+        notifyDataSetChanged();
+        notifySelectionChanged();
     }
 
     @Override
@@ -148,27 +147,15 @@ public class SelectableQuestionAdapter extends RecyclerView.Adapter<SelectableQu
     }
 
     static class QuestionViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvTopic;
         final TextView tvQuestionText;
-        final TextView tvMarks;
         final TextView tvMetadata;
-        final TextView tvCognitiveLevel;
-        final TextView tvQuestionType;
         final CheckBox cbSelect;
 
         QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTopic = itemView.findViewById(R.id.tvTopic);
             tvQuestionText = itemView.findViewById(R.id.tvQuestionText);
-            tvMarks = itemView.findViewById(R.id.tvMarks);
             tvMetadata = itemView.findViewById(R.id.tvMetadata);
-            tvCognitiveLevel = itemView.findViewById(R.id.tvCognitiveLevel);
-            tvQuestionType = itemView.findViewById(R.id.tvQuestionType);
             cbSelect = itemView.findViewById(R.id.cbSelect);
         }
-    }
-
-    private String asPlaceholder(String value) {
-        return "(" + value + ")";
     }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Outer emerald neon glow -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/emerald_neon_glow" />
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+    
+    <!-- Main emerald gradient -->
+    <item android:top="3dp" android:left="3dp" android:right="3dp" android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="@color/button_emerald_start"
+                android:centerColor="@color/button_emerald_center"
+                android:endColor="@color/button_emerald_end"
+                android:type="linear" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Emerald neon edge glow -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/neon_edge_emerald" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+    
+    <!-- Inner shadow for depth -->
+    <item android:top="6dp" android:left="6dp" android:right="6dp" android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000015" />
+            <corners android:radius="22dp" />
+        </shape>
+    </item>
+    
+</layer-list>

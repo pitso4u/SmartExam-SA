@@ -51,7 +51,7 @@
         <activity
             android:name=".marketplace.ui.PackDetailActivity"
             android:exported="false"
-            android.label="Pack Details" />
+            android:label="Pack Details" />
 
         <activity
             android:name=".activities.QuestionBankActivity"
@@ -62,17 +62,6 @@
             android:name=".activities.SettingsActivity"
             android:exported="false"
             android:label="Teacher Settings" />
-
-        <activity
-            android:name=".activities.TermsAcceptanceActivity"
-            android:exported="false"
-            android:label="Terms & Conditions"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".activities.TrialWelcomeActivity"
-            android:exported="false"
-            android:label="Welcome" />
 
         <activity
             android:name=".activities.RegistrationActivity"
@@ -97,7 +86,7 @@
 
         <service
             android:name=".marketplace.services.SyncService"
-            android.permission="android.permission.BIND_JOB_SERVICE" />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>
 
