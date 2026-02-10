@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🎓 Trial Information"
+                    android:text="🎓 Pilot Phase Information"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/electric_blue"
@@ -71,7 +71,7 @@
                     android:id="@+id/tvTrialDisclosure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="This app includes a 14-day free trial. After the trial, continued use requires an active subscription."
+                    android:text="This app is currently in its Pilot Phase and is provided free of charge. Future updates and premium question packs may be charged for within the marketplace."
                     android:textSize="14sp"
                     android:textColor="@color/text_primary_enterprise"
                     android:lineSpacingExtra="2dp" />
@@ -171,7 +171,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="I understand the 14-day free trial terms"
+                android:text="I understand the Pilot Phase access terms"
                 android:textSize="16sp"
                 android:textColor="@color/text_primary_enterprise" />
 

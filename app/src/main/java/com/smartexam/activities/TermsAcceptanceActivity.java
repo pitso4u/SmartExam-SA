@@ -21,37 +21,37 @@ import com.smartexam.subscription.TrialManager;
  * CRITICAL: Trial starts ONLY after acceptance.
  */
 public class TermsAcceptanceActivity extends AppCompatActivity {
-    
+
     private CheckBox termsCheckbox;
     private CheckBox privacyCheckbox;
     private CheckBox trialCheckbox;
     private Button continueButton;
     private TrialManager trialManager;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms_acceptance);
-        
+
         trialManager = TrialManager.getInstance(this);
-        
+
         initViews();
         setupTermsText();
         setupListeners();
         setupOnBackPressed();
     }
-    
+
     private void initViews() {
         termsCheckbox = findViewById(R.id.checkboxTerms);
         privacyCheckbox = findViewById(R.id.checkboxPrivacy);
         trialCheckbox = findViewById(R.id.checkboxTrial);
         continueButton = findViewById(R.id.btnContinue);
-        
+
         // Initially disable continue button
         continueButton.setEnabled(false);
         continueButton.setAlpha(0.5f);
     }
-    
+
     private void setupTermsText() {
         // Set up terms and conditions link
         TextView termsText = findViewById(R.id.tvTermsLink);
@@ -60,7 +60,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         Linkify.addLinks(termsSpannable, Linkify.WEB_URLS);
         termsText.setText(termsSpannable);
         termsText.setMovementMethod(LinkMovementMethod.getInstance());
-        
+
         // Set up privacy policy link
         TextView privacyText = findViewById(R.id.tvPrivacyLink);
         String privacyContent = "Read our Privacy Policy";
@@ -68,19 +68,19 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         Linkify.addLinks(privacySpannable, Linkify.WEB_URLS);
         privacyText.setText(privacySpannable);
         privacyText.setMovementMethod(LinkMovementMethod.getInstance());
-        
+
         // Set up trial disclosure text
         TextView trialDisclosureText = findViewById(R.id.tvTrialDisclosure);
-        String trialDisclosure = "This app includes a 14-day free trial. After the trial, continued use requires an active subscription.";
+        String trialDisclosure = "This app is currently in its Pilot Phase and is provided free of charge. Future updates and premium question packs may be charged for within the marketplace.";
         trialDisclosureText.setText(trialDisclosure);
     }
-    
+
     private void setupListeners() {
         // Checkbox change listeners
         termsCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> validateContinueButton());
         privacyCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> validateContinueButton());
         trialCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> validateContinueButton());
-        
+
         // Continue button click listener
         continueButton.setOnClickListener(v -> handleTermsAcceptance());
     }
@@ -91,25 +91,26 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
             public void handleOnBackPressed() {
                 // Prevent back navigation - terms must be accepted
                 // This is a legal requirement for trial activation
-                Toast.makeText(TermsAcceptanceActivity.this, "You must accept the terms to continue", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TermsAcceptanceActivity.this, "You must accept the terms to continue",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
-    
+
     private void validateContinueButton() {
-        boolean allChecked = termsCheckbox.isChecked() && 
-                           privacyCheckbox.isChecked() && 
-                           trialCheckbox.isChecked();
-        
+        boolean allChecked = termsCheckbox.isChecked() &&
+                privacyCheckbox.isChecked() &&
+                trialCheckbox.isChecked();
+
         continueButton.setEnabled(allChecked);
         continueButton.setAlpha(allChecked ? 1.0f : 0.5f);
     }
-    
+
     private void handleTermsAcceptance() {
         // Show loading state
         continueButton.setEnabled(false);
-        continueButton.setText("Starting Trial...");
-        
+        continueButton.setText("Activating Pilot...");
+
         // Start trial with server-side tracking
         trialManager.startTrialAfterTermsAcceptance(new TrialManager.TrialCallback() {
             @Override
@@ -124,7 +125,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
                     }
                 });
             }
-            
+
             @Override
             public void onError(String errorMessage) {
                 runOnUiThread(() -> {
@@ -134,7 +135,7 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     private void navigateToTrialWelcome() {
         // Navigate to trial welcome screen (separate from marketing)
         Intent intent = new Intent(TermsAcceptanceActivity.this, TrialWelcomeActivity.class);
@@ -142,11 +143,11 @@ public class TermsAcceptanceActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    
+
     private void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-    
+
     private void resetContinueButton() {
         continueButton.setEnabled(true);
         continueButton.setText("Continue");

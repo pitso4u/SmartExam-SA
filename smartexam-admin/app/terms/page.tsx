@@ -7,15 +7,15 @@ export default function TermsPage() {
         <div className="bg-white shadow-sm rounded-lg">
           <div className="px-6 py-8 sm:px-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Legal Terms & Policies</h1>
-            
+
             {/* Privacy Policy */}
             <section className="mb-12">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">5.1 PRIVACY POLICY (POPIA-COMPLIANT)</h2>
               <h3 className="text-xl font-medium text-gray-800 mb-4">Privacy Policy – SmartExam SA</h3>
-              
+
               <div className="text-sm text-gray-600 mb-6">
-                <p>Effective Date: [Insert date]</p>
-                <p>Last Updated: [Insert date]</p>
+                <p>Effective Date: 10 February 2026</p>
+                <p>Last Updated: 10 February 2026</p>
               </div>
 
               <p className="text-gray-700 mb-6">
@@ -145,9 +145,9 @@ export default function TermsPage() {
             <section className="mb-12">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">5.2 TERMS OF SERVICE</h2>
               <h3 className="text-xl font-medium text-gray-800 mb-4">Terms of Service – SmartExam SA</h3>
-              
+
               <div className="text-sm text-gray-600 mb-6">
-                <p>Effective Date: [Insert date]</p>
+                <p>Effective Date: 10 February 2026</p>
               </div>
 
               <p className="text-gray-700 mb-6">
@@ -191,11 +191,11 @@ export default function TermsPage() {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-3">4. Subscriptions</h4>
+                  <h4 className="text-lg font-medium text-gray-900 mb-3">4. Pilot Phase & Access</h4>
                   <ul className="list-disc list-inside text-gray-700 space-y-1 ml-4">
-                    <li>Subscriptions are billed monthly in advance.</li>
-                    <li>Access continues while payment remains active.</li>
-                    <li>Cancellation stops future billing but does not refund prior periods.</li>
+                    <li>The platform is currently in a Pilot Phase.</li>
+                    <li>Access to the core application features is provided free of charge during this phase.</li>
+                    <li>SmartExam SA reserves the right to modify access terms with prior notice.</li>
                   </ul>
                 </div>
 
@@ -241,10 +241,9 @@ export default function TermsPage() {
 
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-3">Subscriptions</h4>
+                  <h4 className="text-lg font-medium text-gray-900 mb-3">Pilot Access</h4>
                   <ul className="list-disc list-inside text-gray-700 space-y-1 ml-4">
-                    <li>Subscription fees are non-refundable once billed.</li>
-                    <li>Users may cancel at any time to prevent future charges.</li>
+                    <li>As the platform is free during the Pilot Phase, no subscription fees apply.</li>
                   </ul>
                 </div>
 
